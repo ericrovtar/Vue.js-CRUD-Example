@@ -1,0 +1,42 @@
+/*------------------------------------*\
+Taken from CSS Wizardry Grids
+csswizardry.com
+\*------------------------------------*/
+/**
+* Define your breakpoints. The first value is the prefix that shall be used for
+* your classes (e.g. `.palm--one-half`), the second value is the media query
+* that the breakpoint fires at.
+*/
+$breakpoints: (
+    'palm' '(max-width: 480px)',
+    'lap' '(min-width: 481px) and (max-width: 1023px)',
+    'portable' '(max-width: 1023px)',
+    'desk' '(min-width: 1024px)'
+)!default;
+
+/**
+* These mixins are for the library to use only, you should not need to modify
+* them at all.
+*
+* Enclose a block of code with a media query as named in `$breakpoints`.
+*/
+@mixin media-query($media-query){
+    $breakpoint-found: false;
+
+    @each $breakpoint in $breakpoints{
+        $name: nth($breakpoint, 1);
+        $declaration: nth($breakpoint, 2);
+
+        @if $media-query == $name and $declaration{
+            $breakpoint-found: true;
+
+            @media only screen and #{$declaration}{
+                @content;
+            }
+        }
+    }
+
+    @if $breakpoint-found == false{
+        @warn "Breakpoint ‘#{$media-query}’ does not exist"
+    }
+}

@@ -1,0 +1,95 @@
+body {
+    font-family: $sans-serif;
+    @include typecsset-font-size($base-font-size);
+
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.header {
+    font-family: $serif;
+    letter-spacing: 2px;
+}
+
+p {
+    font-weight: 300;
+}
+
+ol {
+    list-style: decimal;
+    margin-left: 1em;
+}
+
+a {
+    color: currentColor;
+    text-decoration: none;
+
+    &:hover,
+    &:active {
+        text-decoration: underline;
+    }
+}
+
+.serif {
+    font-family: $serif;
+    letter-spacing: 2px;
+}
+
+.sans-serif {
+    font-family: $sans-serif;
+}
+
+.text {
+    &-white {
+        color: #FFF;
+    }
+
+    &-light-blue {
+        color: $light-blue;
+    }
+
+    &-medium-blue {
+        color: $medium-blue;
+    }
+
+    &-dark-blue {
+        color: $dark-blue;
+    }
+
+    &-black {
+        color: $black;
+    }
+
+    &-smaller {
+        @include typecsset-font-size(14px);
+    }
+
+    &-normal {
+        @include typecsset-font-size($base-font-size);
+    }
+
+    &-bigger {
+        @include typecsset-font-size(24px);
+    }
+}
+
+.indent {
+    margin-left: 1.5em;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.center {
+    text-align: center;
+}
+
+.cursor-point {
+    cursor: pointer;
+}

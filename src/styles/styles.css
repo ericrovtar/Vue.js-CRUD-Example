@@ -1,0 +1,324 @@
+@charset "UTF-8";
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*------------------------------------*\
+#BOX-SIZING
+\*------------------------------------*/
+/**
+* Set the global `box-sizing` state to `border-box`.
+*
+* css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+* paulirish.com/2012/box-sizing-border-box-ftw
+*/
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit; }
+
+/**
+ * Typecsset
+ *
+ * Typecsset is a small, unopinionated library for creating beautifully set type
+ * on the web. Typecsset gives perfect vertical rhythm at any configurable font
+ * size, as well as many other typographical niceties.
+ */
+/*------------------------------------*\
+    #SHARED
+\*------------------------------------*/
+/**
+ * A lot of elements in Typecsset need to share some declarations (mainly for
+ * vertical rhythm), so we `@extend` some silent classes.
+ */
+h1, h2, h3, h4, h5, h6, ul, ol, dd, p, address, pre, blockquote, table {
+  margin: 0;
+  padding: 0; }
+
+h1, h2, h3, h4, h5, h6, ul, ol, dd, p, address, pre, blockquote, table {
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem; }
+
+/*------------------------------------*\
+    #BASE
+\*------------------------------------*/
+/**
+ * 1. Set the base element’s `font-size` to the value of your choosing. Set in
+ *    ems, assuming a browser default of 16px.
+ * 2. Work out the unitless `line-height` for your project based around your
+ *    desired `line-height` (defined previously in pixels), and your project’s
+ *    base font size.
+ */
+html {
+  font-size: 1em;
+  /* [1] */
+  line-height: 1.5;
+  /* [2] */ }
+
+body {
+  margin: 0; }
+
+/*------------------------------------*\
+    #HEADINGS
+\*------------------------------------*/
+h1 {
+  font-size: 48px;
+  font-size: 3rem;
+  line-height: 1; }
+
+h2 {
+  font-size: 36px;
+  font-size: 2.25rem;
+  line-height: 1.33333; }
+
+h3 {
+  font-size: 30px;
+  font-size: 1.875rem;
+  line-height: 1.6; }
+
+h4 {
+  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 1; }
+
+h5 {
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 1.2; }
+
+h6 {
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.33333; }
+
+/*------------------------------------*\
+    #LISTS
+\*------------------------------------*/
+ul, ol, dd {
+  margin-left: 48px;
+  margin-left: 3rem; }
+
+li > ul,
+li > ol {
+  margin-bottom: 0; }
+
+/*------------------------------------*\
+    #PARAGRAPHS
+\*------------------------------------*/
+/**
+ * Not strictly a paragraph, but probably doesn’t need its own section.
+ */
+/*------------------------------------*\
+    #CODE
+\*------------------------------------*/
+/**
+ * 1. Fix an odd quirk whereby, without this, code blocks are rendered at a
+ *    font-size smaller than 1em.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  /* [1] */ }
+
+/*------------------------------------*\
+    #QUOTES
+\*------------------------------------*/
+/**
+ * 1. Hang the opening quote of the blockquote.
+ */
+blockquote {
+  text-indent: -0.41em;
+  /* [1] */ }
+
+/**
+ * Set up quote marks on quoting elements. This is very English-based, so we are
+ * using “, ”, ‘, and ’ quotes.
+ */
+blockquote {
+  quotes: "“" "”";
+  margin-left: 48px;
+  margin-left: 3rem; }
+  blockquote p:before {
+    content: "“";
+    content: open-quote; }
+  blockquote p:after {
+    content: "";
+    content: no-close-quote; }
+  blockquote p:last-of-type:after {
+    content: "”";
+    content: close-quote; }
+
+q {
+  quotes: "‘" "’" "“" "”";
+  /**
+   * If an element opens with an inline quote, let’s hang that.
+   */ }
+  q:before {
+    content: "‘";
+    content: open-quote; }
+  q:after {
+    content: "’";
+    content: close-quote; }
+  q q:before {
+    content: "“";
+    content: open-quote; }
+  q q:after {
+    content: "”";
+    content: close-quote; }
+  q:first-child {
+    display: inline-block;
+    text-indent: -0.22em; }
+
+/*------------------------------------*\
+    #TABLES
+\*------------------------------------*/
+/**
+ * Crude table styles; tables are very difficult to keep on the baseline.
+ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+th,
+td {
+  padding: 12px; }
+
+/*------------------------------------*\
+Taken from CSS Wizardry Grids
+csswizardry.com
+\*------------------------------------*/
+/**
+* Define your breakpoints. The first value is the prefix that shall be used for
+* your classes (e.g. `.palm--one-half`), the second value is the media query
+* that the breakpoint fires at.
+*/
+/**
+* These mixins are for the library to use only, you should not need to modify
+* them at all.
+*
+* Enclose a block of code with a media query as named in `$breakpoints`.
+*/
+body {
+  font-family: "Roboto", Verdana, Arial, sans-serif;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.33333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+h1, h2, h3, h4, h5, h6,
+.header {
+  font-family: "Franklin Gothic Book", serif;
+  letter-spacing: 2px; }
+
+p {
+  font-weight: 300; }
+
+ol {
+  list-style: decimal;
+  margin-left: 1em; }
+
+a {
+  color: currentColor;
+  text-decoration: none; }
+  a:hover, a:active {
+    text-decoration: underline; }
+
+.serif {
+  font-family: "Franklin Gothic Book", serif;
+  letter-spacing: 2px; }
+
+.sans-serif {
+  font-family: "Roboto", Verdana, Arial, sans-serif; }
+
+.text-white {
+  color: #FFF; }
+.text-light-blue {
+  color: #a2ccdd; }
+.text-medium-blue {
+  color: #69a7c2; }
+.text-dark-blue {
+  color: #467284; }
+.text-black {
+  color: #333; }
+.text-smaller {
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.71429; }
+.text-normal {
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.33333; }
+.text-bigger {
+  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 1; }
+
+.indent {
+  margin-left: 1.5em; }
+
+.bold {
+  font-weight: 700; }
+
+.italic {
+  font-style: italic; }
+
+.center {
+  text-align: center; }
+
+.cursor-point {
+  cursor: pointer; }
+
+th {
+  font-weight: bold; }
+
+/*# sourceMappingURL=styles.css.map */
