@@ -247,6 +247,52 @@ csswizardry.com
 *
 * Enclose a block of code with a media query as named in `$breakpoints`.
 */
+.background-cover {
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.static-image {
+  position: absolute;
+  top: 0;
+  z-index: -1; }
+
+.object-cover {
+  object-fit: cover;
+  object-position: top center;
+  height: 100%;
+  width: 100%; }
+
+.content-wrapper {
+  padding: 4rem;
+  width: 100%; }
+  @media only screen and (max-width: 480px) {
+    .content-wrapper {
+      padding: 3rem 10px;
+      max-width: 100vw;
+      overflow-x: hidden; } }
+  .content-wrapper.lock-width, .content-wrapper .lock-width {
+    max-width: 60rem; }
+
+.add-padding {
+  padding: 1rem 20px; }
+
+.add-right-margin {
+  margin-right: 20px !important; }
+  .add-right-margin--double {
+    margin-right: 40px !important; }
+
+.add-bottom-margin {
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem; }
+
+.no-bottom-margin {
+  margin-bottom: 0; }
+
+.center-by-margin {
+  margin-left: auto !important;
+  margin-right: auto !important; }
+
 body {
   font-family: "Roboto", Verdana, Arial, sans-serif;
   font-size: 18px;

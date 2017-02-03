@@ -1,0 +1,63 @@
+.background-cover {
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.static-image {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+
+.object-cover {
+    object-fit: cover; 
+    object-position: top center; 
+
+    height: 100%;
+    width: 100%; 
+}
+
+.content-wrapper {
+    padding: 4rem;
+    width: 100%;
+
+    @include media-query("palm") {
+        padding: 3rem 10px;
+
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+    &.lock-width,
+    & .lock-width {
+        max-width: 60rem;
+    }
+}
+
+.add-padding {
+    padding: 1rem $gutter;
+}
+
+.add-right-margin {
+    margin-right: $gutter !important;
+
+    &--double {
+        margin-right: $gutter * 2 !important;
+    }
+}
+
+.add-bottom-margin {
+    // margin-bottom: 2em;
+    margin-bottom: $typecsset-magic-number;
+    margin-bottom: $typecsset-magic-ratio + rem;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0;
+}
+
+.center-by-margin {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
