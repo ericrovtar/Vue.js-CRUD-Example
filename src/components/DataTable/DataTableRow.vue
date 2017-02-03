@@ -17,7 +17,6 @@ export default {
     props: [ 'item' ],
     methods: {
         edit: function() {
-            console.log("edit");
             this.$emit('edit');
         }
     }

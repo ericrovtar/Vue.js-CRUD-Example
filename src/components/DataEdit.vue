@@ -20,7 +20,10 @@
                 </tr>
             </table>
 
-            <input type="submit" />
+            <input type="submit" /> 
+            
+            <input type="button" value="Cancel"
+                @click="cancel" />
         </form>
     </div>
 </template>
@@ -38,6 +41,10 @@ export default {
             let postItem = this.createPostItem(this.item);
 
             this.addToDatabase(postItem);
+        },
+        cancel: function() {
+            console.log("canceled");
+            this.$emit('changeView', { view: 'table' });
         },
         createPostItem: function(item) {
             let postItem = {};

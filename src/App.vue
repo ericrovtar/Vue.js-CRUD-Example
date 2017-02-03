@@ -6,7 +6,8 @@
 
     <dataEdit v-if="view === 'add' || view === 'edit'" 
       :item="selectedItem" 
-      :dataProperties="dataProperties" />
+      :dataProperties="dataProperties"
+      v-on:changeView="changeView" />
   </div>
 </template>
 
@@ -113,9 +114,6 @@ export default {
     }
   },
   methods: {
-    // test: function(arg) {
-    //   console.log(arg);
-    // },
     changeView: function(args) {
       if (args.item !== undefined) {
         console.log("Selected item is...");
@@ -124,7 +122,7 @@ export default {
         this.selectedItem = args.item;
       }
       else {
-        this.selectedItem = newItem();
+        this.selectedItem = this.newItem();
       }
 
       this.view = args.view;
