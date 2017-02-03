@@ -1,26 +1,14 @@
+//Creates a table cell for each value in key in the item
 <template>
     <tr>
-        <td>{{ item.id }}</td>
-        <td>{{ item.first_name }}</td>
-        <td>{{ item.last_name }}</td>
-        <td>{{ item.company_name }}</td>
-        <td>{{ item.address }}</td>
-        <td>{{ item.city }}</td>
-        <td>{{ item.state }}</td>
-        <td>{{ item.zip }}</td>
-        <td>{{ item.phone }}</td>
-        <td>{{ item.work_phone }}</td>
-        <td>{{ item.email }}</td>
-        <td>{{ item.url }}</td>
-        <td>{{ item.created_at }}</td>
-        <td>{{ item.updated_at }}</td>
+        <td v-for="(value, key, index) in item" :key="index">{{value}}</td>
     </tr>
 </template>
 
 <script>
 export default {
     name: 'dataTableRow',
-    props: ['item']
+    props: [ 'item' ]
 }
 </script>
 
