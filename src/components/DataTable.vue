@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in data.data">
+        <tr v-for="item in data.data" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.first_name }}</td>
           <td>{{ item.last_name }}</td>
@@ -27,6 +27,7 @@
           <td>{{ item.address }}</td>
           <td>{{ item.city }}</td>
           <td>{{ item.state }}</td>
+          <td>{{ item.zip }}</td>
           <td>{{ item.phone }}</td>
           <td>{{ item.work_phone }}</td>
           <td>{{ item.email }}</td>
