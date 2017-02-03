@@ -1,7 +1,11 @@
 //Creates a table cell for each value in key in the item
 <template>
     <tr>
-        <td v-for="(value, key, index) in item" :key="index">{{value}}</td>
+        <td v-for="(value, key, index) in item" 
+            :key="index"
+            :headers="key">
+            {{value}}
+        </td>
     </tr>
 </template>
 

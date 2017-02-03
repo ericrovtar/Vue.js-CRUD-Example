@@ -12,20 +12,11 @@
         <table>
             <thead>
                 <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Company Name</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zip Code</th>
-                <th>Phone</th>
-                <th>Work Phone</th>
-                <th>Email</th>
-                <th>URL</th>
-                <th>Created At</th>
-                <th>Updated Ad</th>
+                    <th v-for="(value, key, index) in dataProperties"
+                        :key="index"
+                        :id="value.key">
+                        {{ value.value }}
+                    </th>
                 </tr>
             </thead>
             <tbody>
