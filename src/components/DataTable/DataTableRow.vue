@@ -7,7 +7,7 @@
             {{value}}
         </td>
 
-        <td><input type="button" value="Edit" v-on:click="edit" /></td>
+        <td><input type="button" value="Edit" @click="edit" /></td>
     </tr>
 </template>
 

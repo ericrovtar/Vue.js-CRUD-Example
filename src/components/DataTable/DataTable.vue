@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="add-bottom-margin">
-            <input type="button" value="Add" v-on:click="changeView('add')" />
+            <input type="button" value="Add" @click="changeView('add')" />
         </div>
         
         <div class="add-bottom-margin">
@@ -34,7 +34,7 @@
                     <dataTableRow v-for="item in filter(data.data)" 
                         :key="item.id" 
                         :item="item"
-                        v-on:edit="editRow(item)" />
+                        @edit="editRow(item)" />
                 </tbody>
             </table>
         </div>

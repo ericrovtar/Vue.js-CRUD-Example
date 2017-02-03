@@ -2,12 +2,12 @@
   <div id="app">
     <dataTable v-if="view === 'table'"
       :dataProperties="dataProperties"
-      v-on:changeView="changeView" />
+      @changeView="changeView" />
 
     <dataEdit v-if="view === 'add' || view === 'edit'" 
       :item="selectedItem" 
       :dataProperties="dataProperties"
-      v-on:changeView="changeView" />
+      @changeView="changeView" />
   </div>
 </template>
 
