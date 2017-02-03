@@ -1,5 +1,8 @@
 <template>
     <div class="content-wrapper lock-width">
+        <h1 v-if="item.id === ''">Add Record</h1>
+        <h1 v-else>Edit Record</h1>
+
         <form @submit.prevent="submit">
             <table>
                 <tr v-for="(value, key, index) in item">
@@ -24,7 +27,7 @@
 
 <script>
 export default {
-    name: 'dataTableRowAdd',
+    name: 'dataEdit',
     props: [ 'item', 'dataProperties' ],
     data () {
         return {

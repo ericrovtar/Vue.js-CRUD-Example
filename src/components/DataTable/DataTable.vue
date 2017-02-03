@@ -1,6 +1,10 @@
 <template>
     <div>
         <div class="add-bottom-margin">
+            <input type="button" value="Add" v-on:click="changeView('add')" />
+        </div>
+        
+        <div class="add-bottom-margin">
             <h1>Filter</h1>
 
             <select v-model="filterProperty">
@@ -34,26 +38,17 @@
                 </tbody>
             </table>
         </div>
-
-        <div>
-            <h1>Add Data</h1>
-
-            <dataTableRowAdd :item="newItem()" :dataProperties="dataProperties" />
-        </div>
     </div>
 </template>
 
 <script>
-import _string from '../../includes/string.js';
-
 import DataTableRow from './DataTableRow';
-import DataTableRowAdd from './DataTableRowAdd';
 
 export default {
     name: 'dataTable',
+    props: [ 'dataProperties' ],
     components: {
-        DataTableRow,
-        DataTableRowAdd
+        DataTableRow
     },
     mounted () {
         //Get Table Data
@@ -96,92 +91,6 @@ export default {
     data () {
         return {
             data: '',
-            dataProperties: {
-                id: {
-                    value: 'ID',
-                    required: true,
-                    postBack: false,
-                    editable: false
-                },
-                first_name: {
-                    value: 'First Name',
-                    required: true,
-                    postBack: true,
-                    editable: true
-                },
-                last_name: {
-                    value: 'Last Name',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                company_name: {
-                    value: 'Company Name',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                address: {
-                    value: 'Address',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                city: {
-                    value: 'City',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                state: {
-                    value: 'State',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                zip: {
-                    value: 'Zip Code',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                phone: {
-                    value: 'Phone',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                work_phone: {
-                    value: 'Work Phone',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                email: {
-                    value: 'Email',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                url: {
-                    value: 'URL',
-                    required: false,
-                    postBack: true,
-                    editable: true
-                },
-                created_at: {
-                    value: 'Created At',
-                    required: true,
-                    postBack: false,
-                    editable: false
-                },
-                updated_at: {
-                    value: 'Updated At',
-                    required: true,
-                    postBack: false,
-                    editable: false
-                },
-            },
             filterProperty: '',
             filterText: ''
         }
@@ -217,23 +126,13 @@ export default {
             //Nothing to filter, return the whole set
             return data;
         },
-        newItem: function() {
-            //Create an empty object
-            let item = {};
-
-            //Add properties to the item
-            for (let prop in this.dataProperties) {
-                item[prop] = '';
-            }
-            // this.dataProperties.forEach(function (item2) {
-            //     item[item2.key] = '';
-            // });
-
-            return item;
-        },
         editRow: function(item) {
             console.log("Ready to edit row");
             console.log(item);
+            this.$emit('changeView', { view: 'edit', item: item });
+        },
+        changeView: function(view) {
+            this.$emit('changeView', { view: view });
         }
     }
 }
