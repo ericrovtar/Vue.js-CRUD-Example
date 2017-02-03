@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DataTable from './components/DataTable'
+import DataTable from './components/DataTable/DataTable'
 
 export default {
   name: 'app',
