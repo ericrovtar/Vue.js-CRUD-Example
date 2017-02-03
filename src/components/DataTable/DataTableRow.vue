@@ -6,13 +6,21 @@
             :headers="key">
             {{value}}
         </td>
+
+        <td><input type="button" value="Edit" v-on:click="edit" /></td>
     </tr>
 </template>
 
 <script>
 export default {
     name: 'dataTableRow',
-    props: [ 'item' ]
+    props: [ 'item' ],
+    methods: {
+        edit: function() {
+            console.log("edit");
+            this.$emit('edit');
+        }
+    }
 }
 </script>
 
