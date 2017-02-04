@@ -1,0 +1,17 @@
+.cta {
+    -webkit-appearance: none;
+
+    background: transparent;
+    border: 1px solid $dark-blue;
+    padding: 10px $gutter;
+
+    cursor: pointer;
+
+    transition: all .25s ease;
+
+    &:hover {
+        background: $dark-blue;
+        color: #FFF;
+        text-decoration: none;
+    }
+}

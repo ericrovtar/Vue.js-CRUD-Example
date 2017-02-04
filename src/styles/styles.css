@@ -364,6 +364,18 @@ a {
 .cursor--pointer {
   cursor: pointer; }
 
+.cta {
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid #467284;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all .25s ease; }
+  .cta:hover {
+    background: #467284;
+    color: #FFF;
+    text-decoration: none; }
+
 caption {
   text-align: right; }
 
@@ -373,7 +385,8 @@ thead {
 tbody {
   border-bottom: 2px solid #333; }
   tbody tr {
-    border-bottom: 1px solid #CCC; }
+    border-bottom: 1px solid #CCC;
+    transition: all .25s ease; }
     tbody tr:hover {
       background-color: #EEE; }
 

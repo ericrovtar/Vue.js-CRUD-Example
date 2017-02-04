@@ -3,7 +3,7 @@
         <h1 v-if="item.id === ''">Add Record</h1>
         <h1 v-else>Edit Record</h1>
 
-        <form @submit.prevent="save">
+        <form>
             <table>
                 <tr v-for="(value, key, index) in item">
                     <th>{{ dataProperties[key].value }}</th>
@@ -20,10 +20,10 @@
                 </tr>
             </table>
 
-            <input type="submit" value="Save" /> 
-            
-            <input type="button" value="Cancel"
-                @click="cancel" />
+            <a class="cta"
+                @click="save">Save</a>
+            <a class="cta" 
+                @click="cancel">Cancel</a> 
         </form>
     </div>
 </template>

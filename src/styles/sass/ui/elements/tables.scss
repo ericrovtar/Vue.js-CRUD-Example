@@ -12,6 +12,8 @@ tbody {
     tr {
         border-bottom: 1px solid $medium-gray;
 
+        transition: all .25s ease;
+
         &:hover {
             background-color: $light-gray;
         }
