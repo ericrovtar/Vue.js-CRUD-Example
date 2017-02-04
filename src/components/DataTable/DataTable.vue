@@ -41,16 +41,6 @@
             </div>  
         </div>
 
-        <div>
-            <select v-model="sortProperty">
-                <option v-for="(value, key, index) in dataProperties" 
-                    :key="index" 
-                    :value="key">
-                    {{ value.value }}
-                </option>
-            </select>
-        </div>
-
         <div class="overflow-x--scroll add-bottom-margin">
             <table>
                 <caption>
@@ -64,8 +54,15 @@
                         <th v-for="(value, key, index) in dataProperties"
                             v-if="value.showDefault"
                             :key="index"
-                            :id="value.key">
+                            :id="key"
+                            @click="changeSortProperty(key)"
+                            class="cursor--pointer">
                             {{ value.value }}
+
+                            <span v-if="key === sortProperty">
+                                <i v-if="sortOrder === 'asc'" class="fa fa-chevron-down"></i>
+                                <i v-if="sortOrder === 'desc'" class="fa fa-chevron-up"></i>
+                            </span>
                         </th>
                         <th id="table-controls"></th>
                     </tr>
@@ -97,7 +94,8 @@ export default {
         return {
             filterProperty: '',
             filterText: '',
-            sortProperty: 'last_name'
+            sortProperty: 'last_name',
+            sortOrder: 'asc'
         }
     },
     computed: {
@@ -138,6 +136,27 @@ export default {
             //Nothing to filter, return the whole set
             return data;
         },
+        compareObjects: function(obj1, obj2) {
+            if (obj1[this.sortProperty] === null || obj1[this.sortProperty] === undefined) {
+                return -1;
+            }
+            else if (obj2[this.sortProperty] === null || obj2[this.sortProperty] === undefined){
+                return 1;
+            }
+            else {
+                //Compare based on type
+                if (typeof obj1[this.sortProperty] === "string") {
+                    return obj1[this.sortProperty].localeCompare(obj2[this.sortProperty]);
+                }
+                else if (typeof obj1[this.sortProperty] === "number") {
+                    return obj1[this.sortProperty] > obj2[this.sortProperty];
+                }
+                else {
+                    //Try turning the item into a string
+                    return obj1[this.sortProperty].toString().localeCompare(obj2[this.sortProperty].toString());
+                }
+            }
+        },
         sort: function(data) {
             console.log('sorting');
 
@@ -145,26 +164,39 @@ export default {
                 let _this = this;
                 
                 return data.sort(function(obj1, obj2) {
-                    if (obj1[_this.sortProperty] === null || obj1[_this.sortProperty] === undefined) {
-                        return -1;
-                    }
-                    else if (obj2[_this.sortProperty] === null || obj2[_this.sortProperty] === undefined){
-                        return 1;
+                    //Check for sort order
+                    if (_this.sortOrder === 'asc') {
+                        return _this.compareObjects(obj1, obj2);
                     }
                     else {
-                        //Compare based on type
-                        if (typeof obj1[_this.sortProperty] === "string") {
-                            return obj1[_this.sortProperty].localeCompare(obj2[_this.sortProperty]);
-                        }
-                        else if (typeof obj1[_this.sortProperty] === "number") {
-                            return obj1[_this.sortProperty] > obj2[_this.sortProperty];
-                        }
-                        else {
-                            //Try turning the item into a string
-                            return obj1[_this.sortProperty].toString().localeCompare(obj2[_this.sortProperty].toString());
-                        }
+                        return _this.compareObjects(obj2, obj1);
                     }
                 });
+            }
+        },
+        changeSortProperty: function(property) {
+            //Check if property has really changed
+            if (property === this.sortProperty) {
+                //Change order instead
+                this.toggleSortOrder();
+            }
+            else {
+                //Set new sort property
+                this.sortProperty = property;
+
+                //Set sort order
+                this.setSortOrder('asc');
+            }
+        },
+        setSortOrder: function(order) {
+            this.sortOrder = order;
+        },
+        toggleSortOrder: function() {
+            if (this.sortOrder === 'asc') {
+                this.setSortOrder('desc');
+            }
+            else {
+                this.setSortOrder('asc');
             }
         },
         editRow: function(item) {

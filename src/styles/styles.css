@@ -434,7 +434,8 @@ tbody {
 
 th {
   font-weight: bold;
-  text-align: left; }
+  text-align: left;
+  white-space: nowrap; }
 
 .box--green {
   background: rgba(0, 204, 102, 0.2);
