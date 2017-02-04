@@ -65,7 +65,8 @@
                         :key="item.id" 
                         :item="item"
                         :dataProperties="dataProperties"
-                        @edit="editRow(item)" />
+                        @edit="editRow(item)"
+                        @delete="deleteRow(item.id)" />
                 </tbody>
             </table>
         </div>
@@ -73,6 +74,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import DataTableRow from './DataTableRow';
 
 export default {
@@ -125,6 +127,29 @@ export default {
         },
         changeView: function(view) {
             this.$emit('changeView', { view: view });
+        },
+        deleteRow: function(itemId) {
+            //Delete record
+            this.deleteFromDatabase(itemId);
+
+            //Reload data
+            this.$emit('save', this.item);
+            //this.$emit('changeView', { view: 'table' });
+        },
+        deleteFromDatabase: function(itemId) {
+            //Post New Data
+            let url = `https://challenge.acstechnologies.com/api/contact/${itemId}`;
+            let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
+
+            axios.delete(url, {
+                headers: headers
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log('Request failed: ', error);
+            });
         }
     }
 }

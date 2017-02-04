@@ -4,7 +4,8 @@
       <dataTable v-if="view === 'table'"
         :data="data"
         :dataProperties="dataProperties"
-        @changeView="changeView" />
+        @changeView="changeView"
+        @save="save" />
 
       <dataEdit v-if="view === 'add' || view === 'edit'" 
         :item="selectedItem" 
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import DataTable from './components/DataTable/DataTable'
 import DataEdit from './components/DataEdit';
 
@@ -138,30 +140,47 @@ export default {
   },
   methods: {
     loadData: function() {
+      // let url = 'https://challenge.acstechnologies.com/api/contact/';
+      // var request = new Request(url, {
+      //                 method: 'get',
+      //                 mode: 'cors',
+      //                 redirect: 'follow',
+      //                 headers: {
+      //                     'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg'
+      //                 }, 
+      //             });
+
+      // //Allow access to `this` within fetch
+      // let _this = this;
+
+      // //Get the data
+      // fetch(request)
+      //     .then(function json(response) {  
+      //         return response.json() 
+      //     })
+      //     .then(function(data) {
+      //         //Update data
+      //         _this.data = data;
+      //     }).catch(function(error) {
+      //         console.log('Request failed', error);
+      //     });
+
       let url = 'https://challenge.acstechnologies.com/api/contact/';
-      var request = new Request(url, {
-                      method: 'get',
-                      mode: 'cors',
-                      redirect: 'follow',
-                      headers: {
-                          'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg'
-                      }, 
-                  });
+      let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
 
       //Allow access to `this` within fetch
       let _this = this;
 
-      //Get the data
-      fetch(request)
-          .then(function json(response) {  
-              return response.json() 
-          })
-          .then(function(data) {
-              //Update data
-              _this.data = data;
-          }).catch(function(error) {
-              console.log('Request failed', error);
-          });
+      axios.get(url, {
+          headers: headers
+      })
+      .then(function (response) {
+          // console.log(response);
+          _this.data = response.data;
+      })
+      .catch(function (error) {
+          console.log('Request failed: ', error);
+      });
     },
     changeView: function(args) {
       if (args.item !== undefined) {
@@ -189,7 +208,7 @@ export default {
 
       //Add properties to the item
       for (let prop in this.dataProperties) {
-          item[prop] = '';
+          item[prop] = null;
       }
       // this.dataProperties.forEach(function (item2) {
       //     item[item2.key] = '';

@@ -9,7 +9,7 @@
 
                 <div>
                     <input type="text"
-                        :value="item[key]"
+                        v-model="updatedItem[key]"
                         :disabled="!dataProperties[key].editable"
                         :required="dataProperties[key].required" />
                 </div>
@@ -28,38 +28,44 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'dataEdit',
     props: [ 'item', 'dataProperties' ],
     data () {
         return {
+            updatedItem: JSON.parse(JSON.stringify(this.item))
         }
     },
     methods: {
         save: function() {
+            //Create item with properties needed for post/put
+            let postItem = this.createPostItem(this.updatedItem);
+            console.log(postItem);
+
             //Check for new item
             if (this.item.id === '') {
                 console.log("Adding new item...");
 
-                //Create item for postback
-                let postItem = this.createPostItem(this.item);
-
-                //this.addToDatabase(postItem);
-
-                //Trigger parent update
-                this.$emit('save', this.item);
+                //Add the item to the database
+                this.addToDatabase(postItem);
             }
             else {
                 console.log("Updating existing item...");
-                //Update existing item
 
-                //Trigger parent update
-                this.$emit('save', this.item);
+                //Update existing item
+                this.updateInDatabase(this.item.id, postItem);
             }
 
+            //Trigger parent update
+            this.$emit('save', this.item);
+            this.$emit('changeView', { view: 'table' });
         },
         cancel: function() {
             console.log("canceled");
+
+            //Let parent know we're done
             this.$emit('changeView', { view: 'table' });
         },
         createPostItem: function(item) {
@@ -76,35 +82,39 @@ export default {
         },
         addToDatabase: function(item) {
             //Post New Data
-            let url = 'https://challenge.acstechnologies.com/api/contact';
-            let data = JSON.stringify(item);
+            let url = 'https://challenge.acstechnologies.com/api/contact/';
+            let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
 
-            var request = new Request(url, {
-                            method: 'post',
-                            mode: 'no-cors',
-                            redirect: 'follow',
-                            headers: {
-                                'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg'
-                            }, 
-                            body: data
-                        });
-
-            //Allow access to `this` within fetch
+            //Allow access to `this` within post
             let _this = this;
 
-            //Get the data
-            fetch(request)
-                .then(function json(response) {  
-                    // return response.json()  
-                    // console.log('Success!', response);
-                    return response.json() 
-                })
-                .then(function(data) {
-                    console.log('Request succeeded with JSON response', data);
-                    
-                }).catch(function(error) {
-                    console.log('Request failed', error);
-                });
+            axios.post(url, item, {
+                headers: headers
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log('Request failed: ', error);
+            });
+        },
+        updateInDatabase(id, item) {
+            //Update database data
+            let url = `https://challenge.acstechnologies.com/api/contact/${id}`;
+            let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
+
+            //Allow access to `this` within put
+            let _this = this;
+
+            axios.put(url, item, {
+                headers: headers
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log('Request failed: ', error);
+            });
         }
     }
 }

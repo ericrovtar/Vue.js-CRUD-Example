@@ -10,12 +10,12 @@
 
         <td headers="table-controls">
             <a title="Edit"
-                @click="edit"
+                @click="editRow"
                 class="cursor--pointer text--medium-blue">
                 <i class="fa fa-pencil"></i>
             </a>
             <a title="Delete"
-                @click=""
+                @click="deleteRow"
                 class="cursor--pointer text--medium-blue">
                 <i class="fa fa-remove"></i>
             </a>
@@ -28,8 +28,11 @@ export default {
     name: 'dataTableRow',
     props: [ 'item', 'dataProperties' ],
     methods: {
-        edit: function() {
+        editRow: function() {
             this.$emit('edit');
+        },
+        deleteRow: function() {
+            this.$emit('delete');
         }
     }
 }
