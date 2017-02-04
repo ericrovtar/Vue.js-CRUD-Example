@@ -3,6 +3,9 @@
         <h1 v-if="item.id === '' || item.id === null">Add Record</h1>
         <h1 v-else>Edit Record</h1>
 
+        <confirmation
+            :confirmation="confirmation" />
+
         <form :id="updateForm">
             <div v-for="(value, key, index) in item" class="add-bottom-margin">
                 <div class="bold">{{ dataProperties[key].value }}</div>
@@ -30,14 +33,22 @@
 
 <script>
 import axios from 'axios';
+import Confirmation from '../components/Confirmation';
 
 export default {
     name: 'dataEdit',
     props: [ 'item', 'dataProperties' ],
+    components: {
+        Confirmation
+    }, 
     data () {
         return {
             updatedItem: JSON.parse(JSON.stringify(this.item)),
-            updateForm: 'updateForm'
+            updateForm: 'updateForm',
+            confirmation: {
+                status: '',
+                message: ''
+            }
         }
     },
     methods: {
@@ -45,6 +56,12 @@ export default {
             var form = document.getElementById(this.updateForm);
 
             return form.checkValidity();
+        },
+        updateConfirmation: function(status, message) {
+            this.confirmation = {
+                status: status,
+                message: message
+            };
         },
         save: function() {
             //Check form validity
@@ -71,6 +88,7 @@ export default {
                 this.$emit('changeView', { view: 'table' });
             }
             else {
+                this.updateConfirmation('error', "Something isn't quite right. Please check for errors.");
                 console.log("There are errors in the form");
             }
         },

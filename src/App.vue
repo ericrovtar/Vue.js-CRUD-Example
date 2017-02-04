@@ -2,7 +2,6 @@
   <div id="app">
     <div class="content-wrapper">
       <confirmation
-        v-if="confirmation.status !== ''"
         :confirmation="confirmation" />
 
       <dataTable v-if="view === 'table'"
