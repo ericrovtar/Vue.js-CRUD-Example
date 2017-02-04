@@ -77,51 +77,12 @@ import DataTableRow from './DataTableRow';
 
 export default {
     name: 'dataTable',
-    props: [ 'dataProperties' ],
+    props: [ 'data', 'dataProperties' ],
     components: {
         DataTableRow
     },
-    mounted () {
-        //Get Table Data
-        let url = 'https://challenge.acstechnologies.com/api/contact/';
-        var request = new Request(url, {
-                        method: 'get',
-                        mode: 'cors',
-                        redirect: 'follow',
-                        headers: {
-                            'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg'
-                        }, 
-                    });
-
-        //Allow access to `this` within fetch
-        let _this = this;
-
-        //Get the data
-        fetch(request)
-            .then(function json(response) {  
-                // return response.json()  
-                // console.log('Success!', response);
-                return response.json() 
-            })
-            .then(function(data) {
-                // console.log('Request succeeded with JSON response', data);
-                //Update data
-                _this.data = data;
-
-                // //Load property values
-                // if (data.data.length > 0) {
-                //     _this.loadProperties(data.data[0]);
-
-                //     // console.log(_this.dataProperties);
-                // }
-                
-            }).catch(function(error) {
-                console.log('Request failed', error);
-            });
-    },
     data () {
         return {
-            data: '',
             filterProperty: '',
             filterText: ''
         }

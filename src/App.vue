@@ -2,6 +2,7 @@
   <div id="app">
     <div class="content-wrapper">
       <dataTable v-if="view === 'table'"
+        :data="data"
         :dataProperties="dataProperties"
         @changeView="changeView" />
 
@@ -26,6 +27,7 @@ export default {
   data () {
     return {
       view: 'table',
+      data: '',
       dataProperties: {
           id: {
               value: 'ID',
@@ -128,7 +130,37 @@ export default {
       selectedItem: '',
     }
   },
+  beforeMount () {
+      //Get Table Data
+      this.loadData();
+  },
   methods: {
+    loadData: function() {
+      let url = 'https://challenge.acstechnologies.com/api/contact/';
+      var request = new Request(url, {
+                      method: 'get',
+                      mode: 'cors',
+                      redirect: 'follow',
+                      headers: {
+                          'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg'
+                      }, 
+                  });
+
+      //Allow access to `this` within fetch
+      let _this = this;
+
+      //Get the data
+      fetch(request)
+          .then(function json(response) {  
+              return response.json() 
+          })
+          .then(function(data) {
+              //Update data
+              _this.data = data;
+          }).catch(function(error) {
+              console.log('Request failed', error);
+          });
+    },
     changeView: function(args) {
       if (args.item !== undefined) {
         console.log("Selected item is...");
