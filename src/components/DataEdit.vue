@@ -8,19 +8,18 @@
 
         <form :id="updateForm">
             <div v-for="(value, key, index) in item" class="add-bottom-margin">
-                <div class="bold">{{ dataProperties[key].value }}</div>
+                <div v-if="dataProperties[key].editable">
+                    <div class="bold">{{ dataProperties[key].value }}</div>
 
-                <div>
-                    <input type="text"
-                        v-model="updatedItem[key]"
-                        :disabled="!dataProperties[key].editable"
-                        :required="dataProperties[key].required"
-                        :pattern="dataProperties[key].pattern === '' ? '.*' : dataProperties[key].pattern" />
+                    <div>
+                        <input type="text"
+                            v-model="updatedItem[key]"
+                            :disabled="!dataProperties[key].editable"
+                            :required="dataProperties[key].required"
+                            :pattern="dataProperties[key].pattern === '' ? '.*' : dataProperties[key].pattern" />
+                    </div>
                 </div>
-
-                <div>
-                    {{ dataProperties[key] }}
-                </div>
+                
             </div>
 
             <a class="cta"
@@ -65,7 +64,7 @@ export default {
         },
         save: function() {
             //Check form validity
-            if (this.checkFormValidity === true) {
+            if (this.checkFormValidity() === true) {
                 //Create item with properties needed for post/put
                 let postItem = this.createPostItem(this.updatedItem);
 
