@@ -41,6 +41,16 @@
             </div>  
         </div>
 
+        <div>
+            <select v-model="sortProperty">
+                <option v-for="(value, key, index) in dataProperties" 
+                    :key="index" 
+                    :value="key">
+                    {{ value.value }}
+                </option>
+            </select>
+        </div>
+
         <div class="overflow-x--scroll add-bottom-margin">
             <table>
                 <caption>
@@ -61,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <dataTableRow v-for="item in filter(data.data)" 
+                    <dataTableRow v-for="item in sort(filter(data.data))" 
                         :key="item.id" 
                         :item="item"
                         :dataProperties="dataProperties"
@@ -86,7 +96,8 @@ export default {
     data () {
         return {
             filterProperty: '',
-            filterText: ''
+            filterText: '',
+            sortProperty: 'last_name'
         }
     },
     methods: {
@@ -119,6 +130,23 @@ export default {
 
             //Nothing to filter, return the whole set
             return data;
+        },
+        sort: function(data) {
+            if (data !== undefined) {
+                let _this = this;
+                
+                return data.sort(function(obj1, obj2) {
+                    if (obj1[_this.sortProperty] === null || obj1[_this.sortProperty] === undefined) {
+                        return -1;
+                    }
+                    else if (obj2[_this.sortProperty] === null || obj2[_this.sortProperty] === undefined){
+                        return 1;
+                    }
+                    else {
+                        return obj1[_this.sortProperty].localeCompare(obj2[_this.sortProperty]);
+                    }
+                });
+            }
         },
         editRow: function(item) {
             this.$emit('changeView', { view: 'edit', item: item });
