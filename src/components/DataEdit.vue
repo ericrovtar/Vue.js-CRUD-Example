@@ -11,7 +11,8 @@
                     <input type="text"
                         v-model="updatedItem[key]"
                         :disabled="!dataProperties[key].editable"
-                        :required="dataProperties[key].required" />
+                        :required="dataProperties[key].required"
+                        :pattern="dataProperties[key].pattern === '' ? '.*' : dataProperties[key].pattern" />
                 </div>
 
                 <div>
