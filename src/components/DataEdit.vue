@@ -92,8 +92,6 @@ export default {
                 this.updateConfirmation('error', "Something isn't quite right. Please check for errors.");
 
                 //Scroll to top
-                // let top = document.getElementById("app");
-                // this.$SmoothScroll(top);
                 this.$ScrollToTop;
             }
         },

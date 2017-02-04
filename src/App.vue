@@ -164,82 +164,82 @@ export default {
   },
   methods: {
     loadData: function() {
-      // let url = 'https://challenge.acstechnologies.com/api/contact/';
-      // var request = new Request(url, {
-      //                 method: 'get',
-      //                 mode: 'cors',
-      //                 redirect: 'follow',
-      //                 headers: {
-      //                     'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg'
-      //                 }, 
-      //             });
+        // let url = 'https://challenge.acstechnologies.com/api/contact/';
+        // var request = new Request(url, {
+        //                 method: 'get',
+        //                 mode: 'cors',
+        //                 redirect: 'follow',
+        //                 headers: {
+        //                     'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg'
+        //                 }, 
+        //             });
 
-      // //Allow access to `this` within fetch
-      // let _this = this;
+        // //Allow access to `this` within fetch
+        // let _this = this;
 
-      // //Get the data
-      // fetch(request)
-      //     .then(function json(response) {  
-      //         return response.json() 
-      //     })
-      //     .then(function(data) {
-      //         //Update data
-      //         _this.data = data;
-      //     }).catch(function(error) {
-      //         console.log('Request failed', error);
-      //     });
+        // //Get the data
+        // fetch(request)
+        //     .then(function json(response) {  
+        //         return response.json() 
+        //     })
+        //     .then(function(data) {
+        //         //Update data
+        //         _this.data = data;
+        //     }).catch(function(error) {
+        //         console.log('Request failed', error);
+        //     });
 
-      let url = 'https://challenge.acstechnologies.com/api/contact/';
-      let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
+        let url = 'https://challenge.acstechnologies.com/api/contact/';
+        let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
 
-      //Allow access to `this` within fetch
-      let _this = this;
+        //Allow access to `this` within fetch
+        let _this = this;
 
-      axios.get(url, {
-          headers: headers
-      })
-      .then(function (response) {
-          // console.log(response);
-          _this.data = response.data;
-      })
-      .catch(function (error) {
-          console.log('Request failed: ', error);
-      });
+        axios.get(url, {
+            headers: headers
+        })
+        .then(function (response) {
+            // console.log(response);
+            _this.data = response.data;
+        })
+        .catch(function (error) {
+            console.log('Request failed: ', error);
+        });
     },
     changeView: function(args) {
-      if (args.item !== undefined) {
-        this.selectedItem = args.item;
-      }
-      else {
-        this.selectedItem = this.newItem();
-      }
+        if (args.item !== undefined) {
+            this.selectedItem = args.item;
+        }
+        else {
+            this.selectedItem = this.newItem();
+        }
 
-      this.view = args.view;
+        this.view = args.view;
+
+        //Scroll to top
+        this.$ScrollToTop;
     },
     showConfirmation: function(args) {
-      console.log("Show confirmation...");
-      this.confirmation = args;
-      console.log(args);
+        console.log("Show confirmation...");
+        this.confirmation = args;
+        console.log(args);
     },
     save: function(args) {
-      console.log("Saving...");
+        console.log("Saving...");
 
-      //Reload Data
-      this.loadData();
+        //Reload Data
+        this.loadData();
     },
     newItem: function() {
-      //Create an empty object
-      let item = {};
+        //Create an empty object
+        let item = {};
 
-      //Add properties to the item
-      for (let prop in this.dataProperties) {
-          item[prop] = null;
-      }
-      // this.dataProperties.forEach(function (item2) {
-      //     item[item2.key] = '';
-      // });
+        //Add properties to the item
+        for (let prop in this.dataProperties) {
+            item[prop] = null;
+        }
 
-      return item;
+        return item;
     },
   }
 }
