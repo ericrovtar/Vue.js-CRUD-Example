@@ -88,8 +88,13 @@ export default {
                 this.$emit('changeView', { view: 'table' });
             }
             else {
+                //Show Error Message
                 this.updateConfirmation('error', "Something isn't quite right. Please check for errors.");
-                console.log("There are errors in the form");
+
+                //Scroll to top
+                // let top = document.getElementById("app");
+                // this.$SmoothScroll(top);
+                this.$ScrollToTop;
             }
         },
         cancel: function() {
