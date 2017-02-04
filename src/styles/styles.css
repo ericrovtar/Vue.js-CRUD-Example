@@ -364,6 +364,9 @@ a {
 .cursor--pointer {
   cursor: pointer; }
 
+.white-space--nowrap {
+  white-space: nowrap; }
+
 .cta {
   -webkit-appearance: none;
   background: transparent;
