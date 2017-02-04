@@ -46,7 +46,21 @@
                 <caption>
                     <a title="Add Entry"
                         class="cursor--pointer text--medium-blue" 
-                        @click="changeView('add')"><i class="fa fa-plus"></i></a>
+                        @click="changeView('add')">
+                        <i class="fa fa-plus"></i>
+                    </a>
+
+                    <a title="Filter Data"
+                        class="cursor--pointer text--medium-blue"
+                        />
+                        <i class="fa fa-filter"></i>
+                    </a>
+
+                    <a title="Choose Columns to Display"
+                        class="cursor--pointer text--medium-blue"
+                        />
+                        <i class="fa fa-columns"></i>
+                    </a>
                 </caption>
                 
                 <thead>
