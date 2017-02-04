@@ -71,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <dataTableRow v-for="item in sort(filter(data.data))" 
+                    <dataTableRow v-for="item in filteredSortedData" 
                         :key="item.id" 
                         :item="item"
                         :dataProperties="dataProperties"
@@ -100,6 +100,11 @@ export default {
             sortProperty: 'last_name'
         }
     },
+    computed: {
+        filteredSortedData: function () {
+            return this.sort(this.filter(this.data.data));
+        }
+    },
     methods: {
         // loadProperties: function(sampleItem) {
         //     for (let prop in sampleItem) {
@@ -115,6 +120,8 @@ export default {
         //     return key.replace('_', ' ').capitalizeFirstLetter();
         // },
         filter: function(data) {
+            console.log('filtering');
+
             //Make sure data has loaded to table
             if (data !== undefined) {
                 //Make sure we have a filter set
@@ -132,6 +139,8 @@ export default {
             return data;
         },
         sort: function(data) {
+            console.log('sorting');
+
             if (data !== undefined) {
                 let _this = this;
                 
@@ -143,7 +152,17 @@ export default {
                         return 1;
                     }
                     else {
-                        return obj1[_this.sortProperty].localeCompare(obj2[_this.sortProperty]);
+                        //Compare based on type
+                        if (typeof obj1[_this.sortProperty] === "string") {
+                            return obj1[_this.sortProperty].localeCompare(obj2[_this.sortProperty]);
+                        }
+                        else if (typeof obj1[_this.sortProperty] === "number") {
+                            return obj1[_this.sortProperty] > obj2[_this.sortProperty];
+                        }
+                        else {
+                            //Try turning the item into a string
+                            return obj1[_this.sortProperty].toString().localeCompare(obj2[_this.sortProperty].toString());
+                        }
                     }
                 });
             }

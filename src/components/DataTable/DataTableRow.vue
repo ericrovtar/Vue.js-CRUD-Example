@@ -34,6 +34,9 @@ export default {
         deleteRow: function() {
             this.$emit('delete');
         }
+    },
+    mounted() {
+        //console.log(this.dataProperties);
     }
 }
 </script>
