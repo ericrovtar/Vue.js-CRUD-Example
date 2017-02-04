@@ -111,7 +111,8 @@ export default {
               value: 'URL',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: false
           },
           created_at: {
               value: 'Created At',
