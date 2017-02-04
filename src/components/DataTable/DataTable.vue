@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="box--dark-gray add-bottom-margin">
-            <div class="content-wrapper lock-width">      
+            <div class="add-padding">      
                 <h1>Display Options</h1>
 
                 <div class="add-bottom-margin">

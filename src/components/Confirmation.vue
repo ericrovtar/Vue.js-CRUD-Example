@@ -1,5 +1,5 @@
 <template>
-    <div class="add-bottom-margin" :class="status === 'error' ? 'box--red' : 'box--green'">
+    <div class="add-bottom-margin add-padding" :class="status === 'error' ? 'box--red' : 'box--green'">
         {{ message }} {{ status }}
     </div>
 </template>
