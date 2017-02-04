@@ -1,9 +1,9 @@
 <template>
     <div class="content-wrapper lock-width center-by-margin">
-        <h1 v-if="item.id === ''">Add Record</h1>
+        <h1 v-if="item.id === '' || item.id === null">Add Record</h1>
         <h1 v-else>Edit Record</h1>
 
-        <form>
+        <form :id="updateForm">
             <div v-for="(value, key, index) in item" class="add-bottom-margin">
                 <div class="bold">{{ dataProperties[key].value }}</div>
 
@@ -36,31 +36,43 @@ export default {
     props: [ 'item', 'dataProperties' ],
     data () {
         return {
-            updatedItem: JSON.parse(JSON.stringify(this.item))
+            updatedItem: JSON.parse(JSON.stringify(this.item)),
+            updateForm: 'updateForm'
         }
     },
     methods: {
+        checkFormValidity: function() {
+            var form = document.getElementById(this.updateForm);
+
+            return form.checkValidity();
+        },
         save: function() {
-            //Create item with properties needed for post/put
-            let postItem = this.createPostItem(this.updatedItem);
+            //Check form validity
+            if (this.checkFormValidity === true) {
+                //Create item with properties needed for post/put
+                let postItem = this.createPostItem(this.updatedItem);
 
-            //Check for new item
-            if (this.item.id === '' || this.item.id === null) {
-                console.log("Adding new item...");
+                //Check for new item
+                if (this.item.id === '' || this.item.id === null) {
+                    console.log("Adding new item...");
 
-                //Add the item to the database
-                this.addToDatabase(postItem);
+                    //Add the item to the database
+                    this.addToDatabase(postItem);
+                }
+                else {
+                    console.log("Updating existing item...");
+
+                    //Update existing item
+                    this.updateInDatabase(this.item.id, postItem);
+                }
+
+                //Trigger parent update
+                this.$emit('save');
+                this.$emit('changeView', { view: 'table' });
             }
             else {
-                console.log("Updating existing item...");
-
-                //Update existing item
-                this.updateInDatabase(this.item.id, postItem);
+                console.log("There are errors in the form");
             }
-
-            //Trigger parent update
-            this.$emit('save');
-            this.$emit('changeView', { view: 'table' });
         },
         cancel: function() {
             console.log("canceled");
