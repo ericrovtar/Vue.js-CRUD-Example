@@ -385,4 +385,8 @@ th {
   background: rgba(170, 170, 170, 0.2);
   border: 1px solid #AAA; }
 
+.overflow-x--scroll {
+  width: 100%;
+  overflow-x: scroll; }
+
 /*# sourceMappingURL=styles.css.map */

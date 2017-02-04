@@ -41,7 +41,7 @@
             </div>  
         </div>
 
-        <div class="add-bottom-margin">
+        <div class="overflow-x--scroll add-bottom-margin">
             <table>
                 <caption>
                     <a title="Add Entry"

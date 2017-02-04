@@ -4,3 +4,8 @@
         border: 1px solid $dark-gray;
     }
 }
+
+.overflow-x--scroll {
+    width: 100%;
+    overflow-x: scroll;
+}
