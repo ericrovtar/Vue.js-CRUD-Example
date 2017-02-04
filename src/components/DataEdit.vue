@@ -8,8 +8,8 @@
                 <div class="bold">{{ dataProperties[key].value }}</div>
 
                 <div>
-                    <input v-model="item[key]"
-                        type="text"
+                    <input type="text"
+                        :value="item[key]"
                         :disabled="!dataProperties[key].editable"
                         :required="dataProperties[key].required" />
                 </div>
