@@ -10,7 +10,7 @@
                     </div>
 
                     <div>
-                        Column to filter by:
+                        What Column Are We Searching In?
                         <select v-model="filterProperty">
                             <option v-for="(value, key, index) in dataProperties" 
                                 :key="index" 
@@ -21,14 +21,14 @@
                     </div>
 
                     <div>
-                        Search string:
+                        What Are We Searching For?
                         <input v-model="filterText" />
                     </div>
                 </div>
 
                 <div>
                     <div class="bold">
-                        Columns to Display
+                        What Columns Do You Want to See?
                     </div>
                     <div v-for="(value, key, index) in dataProperties">
                         <input type="checkbox"

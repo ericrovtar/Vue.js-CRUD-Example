@@ -1,24 +1,23 @@
 <template>
-    <div class="content-wrapper lock-width">
+    <div class="content-wrapper lock-width center-by-margin">
         <h1 v-if="item.id === ''">Add Record</h1>
         <h1 v-else>Edit Record</h1>
 
         <form>
-            <table>
-                <tr v-for="(value, key, index) in item">
-                    <th>{{ dataProperties[key].value }}</th>
+            <div v-for="(value, key, index) in item" class="add-bottom-margin">
+                <div class="bold">{{ dataProperties[key].value }}</div>
 
-                    <td>
-                        <input v-model="item[key]"
-                            :disabled="!dataProperties[key].editable"
-                            :required="dataProperties[key].required" />
-                    </td>
+                <div>
+                    <input v-model="item[key]"
+                        type="text"
+                        :disabled="!dataProperties[key].editable"
+                        :required="dataProperties[key].required" />
+                </div>
 
-                    <td>
-                        {{ dataProperties[key] }}
-                    </td>
-                </tr>
-            </table>
+                <div>
+                    {{ dataProperties[key] }}
+                </div>
+            </div>
 
             <a class="cta"
                 @click="save">Save</a>

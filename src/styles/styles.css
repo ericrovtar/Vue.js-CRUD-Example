@@ -376,6 +376,48 @@ a {
     color: #FFF;
     text-decoration: none; }
 
+input[type="text"],
+input[type="email"], textarea {
+  background: transparent;
+  border: 1px solid #69a7c2;
+  border-radius: 0;
+  margin-bottom: 1em;
+  padding: 0 1em;
+  width: 100%;
+  font-family: "Roboto", Verdana, Arial, sans-serif;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.33333;
+  transition: border .5s; }
+  input[type="text"]:focus,
+  input[type="email"]:focus, textarea:focus {
+    border-color: #467284;
+    outline: none; }
+  input[type="text"]:invalid,
+  input[type="email"]:invalid, textarea:invalid {
+    box-shadow: none; }
+  input[type="text"]:disabled,
+  input[type="email"]:disabled, textarea:disabled {
+    border-color: #CCC; }
+
+input[type="text"],
+input[type="email"] {
+  height: 3rem; }
+  input[type="text"]:not([value=""]):not(:focus):invalid,
+  input[type="email"]:not([value=""]):not(:focus):invalid {
+    border-color: #ca3737; }
+
+textarea {
+  height: 9rem;
+  resize: none; }
+  textarea:not(:empty):invalid {
+    border-color: #ca3737; }
+
+.form--error {
+  background: #ca3737;
+  padding: 1em;
+  color: #FFF; }
+
 caption {
   text-align: right; }
 

@@ -1,0 +1,64 @@
+%base-form-styles {
+    background: transparent;
+
+    border: 1px solid $medium-blue;
+    border-radius: 0;
+
+    margin-bottom: 1em;
+    padding: 0 1em;
+
+    width: 100%;
+
+    font-family: $sans-serif;
+    @include typecsset-font-size(18px);
+    //color: white;
+
+    transition: border .5s;
+
+    &:focus {
+        border-color: $dark-blue;
+        
+        //Hide default blue glow
+        outline: none;
+    }
+
+    //Hide Firefox Initial Red Border
+    &:invalid {
+        box-shadow: none;
+    }
+
+    &:disabled {
+        border-color: $medium-gray;
+    }
+}
+
+input[type="text"],
+input[type="email"] {
+    @extend %base-form-styles;
+
+    height: 3rem;
+
+    &:not([value=""]):not(:focus):invalid {
+        border-color: $red;
+    }
+}
+
+textarea {
+    @extend %base-form-styles;
+
+    height: 9rem;
+
+    resize: none;
+
+    &:not(:empty):invalid {
+        border-color: $red;
+    }
+}
+
+.form--error {
+    background: $red;
+
+    padding: 1em;
+
+    color: #FFF;
+}
