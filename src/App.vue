@@ -2,8 +2,8 @@
   <div id="app">
     <div class="content-wrapper">
       <confirmation
-        :status="'success'"
-        :message="'Congrats!'" />
+        v-if="confirmation.status !== ''"
+        :confirmation="confirmation" />
 
       <dataTable v-if="view === 'table'"
         :data="data"
@@ -15,7 +15,8 @@
         :item="selectedItem" 
         :dataProperties="dataProperties"
         @changeView="changeView"
-        @save="save" />
+        @save="save"
+        @confirmation="showConfirmation" />
     </div>
   </div>
 </template>
@@ -138,6 +139,10 @@ export default {
           },
       },
       selectedItem: '',
+      confirmation: {
+        status: '',
+        message: ''
+      }
     }
   },
   beforeMount () {
@@ -190,9 +195,6 @@ export default {
     },
     changeView: function(args) {
       if (args.item !== undefined) {
-        console.log("Selected item is...");
-        console.log(args.item);
-
         this.selectedItem = args.item;
       }
       else {
@@ -200,7 +202,11 @@ export default {
       }
 
       this.view = args.view;
-      console.log("View changed to " + args.view);
+    },
+    showConfirmation: function(args) {
+      console.log("Show confirmation...");
+      this.confirmation = args;
+      console.log(args);
     },
     save: function(args) {
       console.log("Saving...");

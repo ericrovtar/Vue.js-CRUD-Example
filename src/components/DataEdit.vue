@@ -42,10 +42,9 @@ export default {
         save: function() {
             //Create item with properties needed for post/put
             let postItem = this.createPostItem(this.updatedItem);
-            console.log(postItem);
 
             //Check for new item
-            if (this.item.id === '') {
+            if (this.item.id === '' || this.item.id === null) {
                 console.log("Adding new item...");
 
                 //Add the item to the database
@@ -59,7 +58,7 @@ export default {
             }
 
             //Trigger parent update
-            this.$emit('save', this.item);
+            this.$emit('save');
             this.$emit('changeView', { view: 'table' });
         },
         cancel: function() {
@@ -93,9 +92,15 @@ export default {
             })
             .then(function (response) {
                 console.log(response);
+                _this.$emit('confirmation', {
+                    status: 'success',
+                    message: 'Added to db'
+                });
+                // return response;
             })
             .catch(function (error) {
                 console.log('Request failed: ', error);
+                // return error;
             });
         },
         updateInDatabase(id, item) {
@@ -111,10 +116,23 @@ export default {
             })
             .then(function (response) {
                 console.log(response);
+
+                _this.$emit('confirmation', {
+                    status: 'success',
+                    message: 'Update in db'
+                });
+                // return response;
             })
             .catch(function (error) {
                 console.log('Request failed: ', error);
+                return error;
             });
+        },
+        createConfirmation(status, message) {
+            return {
+                status: status,
+                message: message
+            }
         }
     }
 }

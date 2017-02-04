@@ -1,15 +1,17 @@
 <template>
-    <div class="add-bottom-margin add-padding" :class="status === 'error' ? 'box--red' : 'box--green'">
-        {{ message }} {{ status }}
+    <div class="add-bottom-margin add-padding" :class="confirmation.status === 'error' ? 'box--red' : 'box--green'">
+        {{ confirmation.message }}
     </div>
 </template>
 
 <script>
 export default {
     name: 'confirmation',
-    props: [ 'status', 'message' ],
+    props: [ 'confirmation' ],
     data () {
-
+        return {
+            
+        }
     }
 }
 </script>

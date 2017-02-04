@@ -121,8 +121,6 @@ export default {
             return data;
         },
         editRow: function(item) {
-            console.log("Ready to edit row");
-            console.log(item);
             this.$emit('changeView', { view: 'edit', item: item });
         },
         changeView: function(view) {
