@@ -3,7 +3,7 @@
         <h1 v-if="item.id === ''">Add Record</h1>
         <h1 v-else>Edit Record</h1>
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="save">
             <table>
                 <tr v-for="(value, key, index) in item">
                     <th>{{ dataProperties[key].value }}</th>
@@ -20,7 +20,7 @@
                 </tr>
             </table>
 
-            <input type="submit" /> 
+            <input type="submit" value="Save" /> 
             
             <input type="button" value="Cancel"
                 @click="cancel" />
@@ -37,10 +37,27 @@ export default {
         }
     },
     methods: {
-        submit: function() {
-            let postItem = this.createPostItem(this.item);
+        save: function() {
+            //Check for new item
+            if (this.item.id === '') {
+                console.log("Adding new item...");
 
-            this.addToDatabase(postItem);
+                //Create item for postback
+                let postItem = this.createPostItem(this.item);
+
+                //this.addToDatabase(postItem);
+
+                //Trigger parent update
+                this.$emit('save', this.item);
+            }
+            else {
+                console.log("Updating existing item...");
+                //Update existing item
+
+                //Trigger parent update
+                this.$emit('save', this.item);
+            }
+
         },
         cancel: function() {
             console.log("canceled");

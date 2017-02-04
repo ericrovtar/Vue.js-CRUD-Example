@@ -9,7 +9,8 @@
       <dataEdit v-if="view === 'add' || view === 'edit'" 
         :item="selectedItem" 
         :dataProperties="dataProperties"
-        @changeView="changeView" />
+        @changeView="changeView"
+        @save="save" />
     </div>
   </div>
 </template>
@@ -174,7 +175,12 @@ export default {
 
       this.view = args.view;
       console.log("View changed to " + args.view);
+    },
+    save: function(args) {
+      console.log("Saving...");
 
+      //Reload Data
+      this.loadData();
     },
     newItem: function() {
       //Create an empty object
