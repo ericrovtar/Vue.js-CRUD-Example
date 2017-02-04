@@ -8,7 +8,7 @@
             {{value}}
         </td>
 
-        <td headers="table-controls">
+        <td headers="table-controls" class="white-space--nowrap">
             <a title="Edit"
                 @click="editRow"
                 class="cursor--pointer text--medium-blue">
