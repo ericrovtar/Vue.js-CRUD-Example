@@ -326,25 +326,25 @@ a {
 .sans-serif {
   font-family: "Roboto", Verdana, Arial, sans-serif; }
 
-.text-white {
+.text--white {
   color: #FFF; }
-.text-light-blue {
+.text--light-blue {
   color: #a2ccdd; }
-.text-medium-blue {
+.text--medium-blue {
   color: #69a7c2; }
-.text-dark-blue {
+.text--dark-blue {
   color: #467284; }
-.text-black {
+.text--black {
   color: #333; }
-.text-smaller {
+.text--smaller {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.71429; }
-.text-normal {
+.text--normal {
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.33333; }
-.text-bigger {
+.text--bigger {
   font-size: 24px;
   font-size: 1.5rem;
   line-height: 1; }
@@ -361,10 +361,28 @@ a {
 .center {
   text-align: center; }
 
-.cursor-point {
+.cursor--pointer {
   cursor: pointer; }
 
+caption {
+  text-align: right; }
+
+thead {
+  border-bottom: 2px solid #333; }
+
+tbody {
+  border-bottom: 2px solid #333; }
+  tbody tr {
+    border-bottom: 1px solid #CCC; }
+    tbody tr:hover {
+      background-color: #EEE; }
+
 th {
-  font-weight: bold; }
+  font-weight: bold;
+  text-align: left; }
+
+.box--dark-gray {
+  background: rgba(170, 170, 170, 0.2);
+  border: 1px solid #AAA; }
 
 /*# sourceMappingURL=styles.css.map */

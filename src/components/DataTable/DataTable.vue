@@ -1,39 +1,70 @@
 <template>
     <div>
-        <div class="add-bottom-margin">
-            <input type="button" value="Add" @click="changeView('add')" />
+        <div class="box--dark-gray add-bottom-margin">
+            <div class="content-wrapper lock-width">      
+                <h1>Display Options</h1>
+
+                <div class="add-bottom-margin">
+                    <div class="bold">
+                        Filter
+                    </div>
+
+                    <div>
+                        Column to filter by:
+                        <select v-model="filterProperty">
+                            <option v-for="(value, key, index) in dataProperties" 
+                                :key="index" 
+                                :value="key">
+                                {{ value.value }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        Search string:
+                        <input v-model="filterText" />
+                    </div>
+                </div>
+
+                <div>
+                    <div class="bold">
+                        Columns to Display
+                    </div>
+                    <div v-for="(value, key, index) in dataProperties">
+                        <input type="checkbox"
+                            v-model="dataProperties[key].showDefault"
+                            :value="key">
+                            {{ value.value }}
+                        </input>
+                    </div>
+                </div>
+            </div>  
         </div>
-        
-        <div class="add-bottom-margin">
-            <h1>Filter</h1>
-
-            <select v-model="filterProperty">
-                <option v-for="(value, key, index) in dataProperties" 
-                    :key="index" 
-                    :value="value.key">
-                    {{ value.value }}
-                </option>
-            </select>
-            <input v-model="filterText" />
-        </div>
 
         <div class="add-bottom-margin">
-            <h1>Data</h1>
-
             <table>
+                <caption>
+                    <a title="Add Entry"
+                        class="cursor--pointer text--medium-blue" 
+                        @click="changeView('add')"><i class="fa fa-plus"></i></a>
+                </caption>
+                
                 <thead>
                     <tr>
                         <th v-for="(value, key, index) in dataProperties"
+                            v-if="value.showDefault"
                             :key="index"
                             :id="value.key">
                             {{ value.value }}
                         </th>
+                        <th id="table-controls"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <dataTableRow v-for="item in filter(data.data)" 
                         :key="item.id" 
                         :item="item"
+                        :dataProperties="dataProperties"
                         @edit="editRow(item)" />
                 </tbody>
             </table>

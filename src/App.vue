@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-    <dataTable v-if="view === 'table'"
-      :dataProperties="dataProperties"
-      @changeView="changeView" />
+    <div class="content-wrapper">
+      <dataTable v-if="view === 'table'"
+        :dataProperties="dataProperties"
+        @changeView="changeView" />
 
-    <dataEdit v-if="view === 'add' || view === 'edit'" 
-      :item="selectedItem" 
-      :dataProperties="dataProperties"
-      @changeView="changeView" />
+      <dataEdit v-if="view === 'add' || view === 'edit'" 
+        :item="selectedItem" 
+        :dataProperties="dataProperties"
+        @changeView="changeView" />
+    </div>
   </div>
 </template>
 
@@ -29,67 +31,78 @@ export default {
               value: 'ID',
               required: true,
               postBack: false,
-              editable: false
+              editable: false,
+              showDefault: false
           },
           first_name: {
               value: 'First Name',
               required: true,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: true
           },
           last_name: {
               value: 'Last Name',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: true
           },
           company_name: {
               value: 'Company Name',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: true
           },
           address: {
               value: 'Address',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: false
           },
           city: {
               value: 'City',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: false
           },
           state: {
               value: 'State',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: false
           },
           zip: {
               value: 'Zip Code',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: false
           },
           phone: {
               value: 'Phone',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: true
           },
           work_phone: {
               value: 'Work Phone',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: false
           },
           email: {
               value: 'Email',
               required: false,
               postBack: true,
-              editable: true
+              editable: true,
+              showDefault: true
           },
           url: {
               value: 'URL',
@@ -101,13 +114,15 @@ export default {
               value: 'Created At',
               required: true,
               postBack: false,
-              editable: false
+              editable: false,
+              showDefault: false
           },
           updated_at: {
               value: 'Updated At',
               required: true,
               postBack: false,
-              editable: false
+              editable: false,
+              showDefault: false
           },
       },
       selectedItem: '',

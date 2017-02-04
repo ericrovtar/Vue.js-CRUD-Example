@@ -1,3 +1,24 @@
+caption {
+    text-align: right;
+}
+
+thead {
+    border-bottom: 2px solid $black;
+}
+
+tbody {
+    border-bottom: 2px solid $black;
+
+    tr {
+        border-bottom: 1px solid $medium-gray;
+
+        &:hover {
+            background-color: $light-gray;
+        }
+    }
+}
+
 th {
     font-weight: bold;
+    text-align: left;
 }

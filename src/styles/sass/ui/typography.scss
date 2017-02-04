@@ -41,35 +41,35 @@ a {
 }
 
 .text {
-    &-white {
+    &--white {
         color: #FFF;
     }
 
-    &-light-blue {
+    &--light-blue {
         color: $light-blue;
     }
 
-    &-medium-blue {
+    &--medium-blue {
         color: $medium-blue;
     }
 
-    &-dark-blue {
+    &--dark-blue {
         color: $dark-blue;
     }
 
-    &-black {
+    &--black {
         color: $black;
     }
 
-    &-smaller {
+    &--smaller {
         @include typecsset-font-size(14px);
     }
 
-    &-normal {
+    &--normal {
         @include typecsset-font-size($base-font-size);
     }
 
-    &-bigger {
+    &--bigger {
         @include typecsset-font-size(24px);
     }
 }
@@ -90,6 +90,6 @@ a {
     text-align: center;
 }
 
-.cursor-point {
+.cursor--pointer {
     cursor: pointer;
 }

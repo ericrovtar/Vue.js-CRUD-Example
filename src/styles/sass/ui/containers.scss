@@ -1,0 +1,6 @@
+.box {
+    &--dark-gray {
+        background: transparentize($dark-gray, .8);
+        border: 1px solid $dark-gray;
+    }
+}
