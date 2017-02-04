@@ -22,7 +22,7 @@
 
                     <div>
                         What Are We Searching For?
-                        <input v-model="filterText" />
+                        <input type="text" v-model="filterText" />
                     </div>
                 </div>
 

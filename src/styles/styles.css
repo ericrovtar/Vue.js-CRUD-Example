@@ -377,7 +377,7 @@ a {
     text-decoration: none; }
 
 input[type="text"],
-input[type="email"], textarea {
+input[type="email"], textarea, select {
   background: transparent;
   border: 1px solid #69a7c2;
   border-radius: 0;
@@ -390,14 +390,14 @@ input[type="email"], textarea {
   line-height: 1.33333;
   transition: border .5s; }
   input[type="text"]:focus,
-  input[type="email"]:focus, textarea:focus {
+  input[type="email"]:focus, textarea:focus, select:focus {
     border-color: #467284;
     outline: none; }
   input[type="text"]:invalid,
-  input[type="email"]:invalid, textarea:invalid {
+  input[type="email"]:invalid, textarea:invalid, select:invalid {
     box-shadow: none; }
   input[type="text"]:disabled,
-  input[type="email"]:disabled, textarea:disabled {
+  input[type="email"]:disabled, textarea:disabled, select:disabled {
     border-color: #CCC; }
 
 input[type="text"],

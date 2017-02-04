@@ -55,6 +55,10 @@ textarea {
     }
 }
 
+select {
+    @extend %base-form-styles;
+}
+
 .form--error {
     background: $red;
 
