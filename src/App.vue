@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <div class="content-wrapper">
+      <confirmation
+        :status="'success'"
+        :message="'Congrats!'" />
+
       <dataTable v-if="view === 'table'"
         :data="data"
         :dataProperties="dataProperties"
@@ -18,12 +22,14 @@
 
 <script>
 import axios from 'axios';
-import DataTable from './components/DataTable/DataTable'
+import Confirmation from './components/Confirmation';
+import DataTable from './components/DataTable/DataTable';
 import DataEdit from './components/DataEdit';
 
 export default {
   name: 'app',
   components: {
+    Confirmation,
     DataTable,
     DataEdit
   }, 

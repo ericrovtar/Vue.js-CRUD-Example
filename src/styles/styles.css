@@ -405,16 +405,16 @@ input[type="email"] {
   height: 3rem; }
   input[type="text"]:not([value=""]):not(:focus):invalid,
   input[type="email"]:not([value=""]):not(:focus):invalid {
-    border-color: #ca3737; }
+    border-color: #cc0000; }
 
 textarea {
   height: 9rem;
   resize: none; }
   textarea:not(:empty):invalid {
-    border-color: #ca3737; }
+    border-color: #cc0000; }
 
 .form--error {
-  background: #ca3737;
+  background: #cc0000;
   padding: 1em;
   color: #FFF; }
 
@@ -436,6 +436,12 @@ th {
   font-weight: bold;
   text-align: left; }
 
+.box--green {
+  background: rgba(0, 204, 102, 0.2);
+  border: 1px solid #00cc66; }
+.box--red {
+  background: rgba(184, 43, 43, 0.2);
+  border: 1px solid #b82b2b; }
 .box--dark-gray {
   background: rgba(170, 170, 170, 0.2);
   border: 1px solid #AAA; }

@@ -1,4 +1,14 @@
 .box {
+    &--green {
+        background: transparentize($green, .8);
+        border: 1px solid $green;
+    }
+
+    &--red {
+        background: transparentize($dark-red, .8);
+        border: 1px solid $dark-red;
+    }
+
     &--dark-gray {
         background: transparentize($dark-gray, .8);
         border: 1px solid $dark-gray;
