@@ -1,21 +1,26 @@
 <template>
   <div id="app">
     <div class="content-wrapper">
-      <confirmation
-        :confirmation="confirmation" />
+        <confirmation
+            :confirmation="confirmation" />
 
-      <dataTable v-if="view === 'table'"
-        :data="data"
-        :dataProperties="dataProperties"
-        @changeView="changeView"
-        @save="save" />
+        <dataTable v-if="view === 'table'"
+            :data="data"
+            :dataProperties="dataProperties"
+            @changeView="changeView"
+            @save="save" />
 
-      <dataEdit v-if="view === 'add' || view === 'edit'" 
-        :item="selectedItem" 
-        :dataProperties="dataProperties"
-        @changeView="changeView"
-        @save="save"
-        @confirmation="showConfirmation" />
+        <dataEdit v-if="view === 'add' || view === 'edit'" 
+            :item="selectedItem" 
+            :dataProperties="dataProperties"
+            @changeView="changeView"
+            @save="save"
+            @confirmation="showConfirmation" />
+
+        <columnSelect v-if="view === 'columns'"
+            :dataProperties="dataProperties"
+            @changeView="changeView" />
+        
     </div>
   </div>
 </template>
@@ -25,13 +30,15 @@ import axios from 'axios';
 import Confirmation from './components/Confirmation';
 import DataTable from './components/DataTable/DataTable';
 import DataEdit from './components/DataEdit';
+import ColumnSelect from './components/ColumnSelect';
 
 export default {
   name: 'app',
   components: {
     Confirmation,
     DataTable,
-    DataEdit
+    DataEdit,
+    ColumnSelect
   }, 
   data () {
     return {
