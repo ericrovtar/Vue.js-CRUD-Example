@@ -1,5 +1,14 @@
 <template>
     <div>
+        <Dialog 
+            :show="dialogStatus"
+            :options="dialogOptions"
+            :showCancel="true"
+            @deleteRows="deleteRows"
+            @hideDialog="hideDialog">
+            {{ dialogText }}
+        </Dialog>
+    
         <div class="[ flex justify-content--flex-start ] add-bottom-margin">
             <div>
                 <a title="Add Entry"
@@ -42,7 +51,7 @@
                     v-else
                     class="cta"
                     :class="selectedItems.length < 1 ? 'disabled' : ''"
-                    @click="deleteRows">
+                    @click="confirmDelete">
                     <i class="fa fa-remove"></i> Delete
                 </a>
             </div>
@@ -132,7 +141,6 @@
                                 <i v-if="sortOrder === 'desc'" class="fa fa-chevron-up"></i>
                             </span>
                         </th>
-                        <th id="table-controls"></th>
                     </tr>
                 </thead>
                 <transition-group name="flip-list" tag="tbody">
@@ -149,13 +157,15 @@
 
 <script>
 import axios from 'axios';
+import Dialog from '../Dialog';
 import DataTableRow from './DataTableRow';
 
 export default {
     name: 'dataTable',
     props: [ 'data', 'dataProperties' ],
     components: {
-        DataTableRow
+        DataTableRow,
+        Dialog
     },
     data () {
         return {
@@ -165,7 +175,10 @@ export default {
             showColumnSelect: false,
             sortProperty: 'last_name',
             sortOrder: 'asc',
-            selectedItems: []
+            selectedItems: [],
+            dialogStatus: false,
+            dialogOptions: [],
+            dialogText: null
         }
     },
     computed: {
@@ -174,6 +187,22 @@ export default {
         }
     },
     methods: {
+        updateParentConfirmation: function(status, message) {
+            this.$emit('confirmation', {
+                status: status,
+                message: message
+            });
+        },
+        showDialog: function() {
+            this.dialogStatus = true;
+        },
+        hideDialog: function() {
+            this.dialogStatus = false;
+
+            //Clear options
+            this.dialogOptions = [];
+            this.dialogText = null;
+        },
         itemSelectToggle: function(id) {
             //See if id exists in `selectedItems`
             let i = this.selectedItems.indexOf(id);
@@ -287,45 +316,65 @@ export default {
             //Change view to edit item
             this.$emit('changeView', { view: 'edit', item: item });
         },
+        confirmDelete: function() {
+            //Setup dialog options
+            this.dialogOptions = [{ 
+                text: 'Delete', 
+                icon: 'fa-remove', 
+                emit: 'deleteRows'}];
+
+            this.dialogText = 'Are you sure you want to proceed? You cannot undo this.';
+
+            this.showDialog();
+        },
         deleteRows: function() {
+            //Hide dialog
+            this.hideDialog();
+
             //Make `this` available inside forEach
             let _this = this;
+            let requests = [];
 
             //Iterated through each selected item
             this.selectedItems.forEach(function (itemId) {
-                _this.deleteRow(itemId);
+                //_this.deleteRow(itemId);
+                requests.push(_this.deleteRowRequest(itemId));
             });
 
-            //Reload data
-            this.$emit('save', this.item);
-            //this.$emit('changeView', { view: 'table' });
-        },
-        deleteRow: function(itemId) {
-            //Delete item from data
-            let item = this.findItem(itemId);
-            let index = this.data.data.findIndex(function (item) {
-                return item.id === itemId;
-            });
-            this.data.data.splice(index, 1);
+            axios.all(requests)
+                .then(axios.spread(
+                    function() {
+                        _this.updateParentConfirmation(
+                            'success',
+                            `Success! The selected items were deleted.`
+                        );
 
-            //Delete record from database
-            this.deleteFromDatabase(itemId);
+                        //Trigger data reload
+                        _this.$emit('save');
+                        
+                        _this.$ScrollToTop;
+                    })
+                )
+                .catch(function (error) {
+                    console.log('Request failed: ', error);
+
+                    //Show error message
+                    _this.updateConfirmation(
+                        'error',
+                        `Oops! Something didn't go as expected. Please try again.`
+                    );
+
+                    _this.$ScrollToTop;
+                });  
         },
-        deleteFromDatabase: function(itemId) {
-            //Post New Data
+        deleteRowRequest: function(itemId) {
             let url = `https://challenge.acstechnologies.com/api/contact/${itemId}`;
             let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
 
-            axios.delete(url, {
+            return axios.delete(url, {
                 headers: headers
-            })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log('Request failed: ', error);
             });
-        }
+        },
     }
 }
 </script>

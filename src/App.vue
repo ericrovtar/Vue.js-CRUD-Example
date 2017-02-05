@@ -214,7 +214,7 @@ export default {
             //Create an empty item
             this.selectedItem = this.newItem();
         }
-        
+
         //Change view
         this.view = args.view;
 

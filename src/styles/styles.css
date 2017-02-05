@@ -512,6 +512,16 @@ th {
   text-align: left;
   white-space: nowrap; }
 
+.modal {
+  position: fixed;
+  background: rgba(204, 204, 204, 0.8);
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw; }
+  .modal__content {
+    background: #FFF; }
+
 .flex {
   display: -webkit-box;
   display: -webkit-flex;
