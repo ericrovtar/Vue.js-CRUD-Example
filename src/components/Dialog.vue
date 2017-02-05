@@ -27,22 +27,24 @@
                     <slot>{{ message }}</slot>
                 </div>
 
-                <a v-for="(value, key, index) in options"
-                    class="cta"
-                    :class="value.class"
-                    :key="index"
-                    @click="$emit(value.emit)">
-                    <i v-if="value.icon !== null && value.icon !== ''"
-                        class="fa"
-                        :class="value.icon"></i>
-                    {{ value.text }}
-                </a>
-
-                <a v-if="showCancel"
-                    class="cta"
-                    @click="$emit('hideDialog')">
-                    Cancel
-                </a>
+                <div>
+                    <a v-for="(value, key, index) in options"
+                        class="cta"
+                        :class="value.class"
+                        :key="index"
+                        @click="$emit(value.emit)">
+                        <i v-if="value.icon !== null && value.icon !== ''"
+                            class="fa"
+                            :class="value.icon"></i>
+                        {{ value.text }}
+                    </a>
+                    &nbsp;
+                    <a v-if="showCancel"
+                        class="cta"
+                        @click="$emit('hideDialog')">
+                        Cancel
+                    </a>
+                </div>
             </div>
         </div>
     </template>
