@@ -24,7 +24,8 @@
             :data="data"
             :dataProperties="dataProperties"
             @changeView="changeView"
-            @save="save" />
+            @save="save"
+            @confirmation="showConfirmation" />
 
         <dataEdit v-if="view === 'add' || view === 'edit'" 
             :item="selectedItem" 
@@ -32,11 +33,6 @@
             @changeView="changeView"
             @save="save"
             @confirmation="showConfirmation" />
-
-        <columnSelect v-if="view === 'columns'"
-            :dataProperties="dataProperties"
-            @changeView="changeView" />
-        
     </div>
   </div>
 </template>
@@ -185,31 +181,6 @@ export default {
   },
   methods: {
     loadData: function() {
-        // let url = 'https://challenge.acstechnologies.com/api/contact/';
-        // var request = new Request(url, {
-        //                 method: 'get',
-        //                 mode: 'cors',
-        //                 redirect: 'follow',
-        //                 headers: {
-        //                     'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg'
-        //                 }, 
-        //             });
-
-        // //Allow access to `this` within fetch
-        // let _this = this;
-
-        // //Get the data
-        // fetch(request)
-        //     .then(function json(response) {  
-        //         return response.json() 
-        //     })
-        //     .then(function(data) {
-        //         //Update data
-        //         _this.data = data;
-        //     }).catch(function(error) {
-        //         console.log('Request failed', error);
-        //     });
-
         let url = 'https://challenge.acstechnologies.com/api/contact/';
         let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
 
@@ -243,11 +214,8 @@ export default {
     showConfirmation: function(args) {
         console.log("Show confirmation...");
         this.confirmation = args;
-        console.log(args);
     },
     save: function(args) {
-        console.log("Saving...");
-
         //Reload Data
         this.loadData();
     },

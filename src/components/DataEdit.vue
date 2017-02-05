@@ -1,5 +1,5 @@
 <template>
-    <div class="content-wrapper lock-width center-by-margin">
+    <div class="lock-width center-by-margin">
         <h1 v-if="item.id === '' || item.id === null">Add Record</h1>
         <h1 v-else>Edit Record</h1>
 
@@ -7,8 +7,8 @@
             :confirmation="confirmation" />
 
         <form :id="updateForm">
-            <div v-for="(value, key, index) in item" class="add-bottom-margin">
-                <div v-if="dataProperties[key].editable">
+            <div v-for="(value, key, index) in item">
+                <div v-if="dataProperties[key].editable" class="add-bottom-margin">
                     <div class="bold">{{ dataProperties[key].value }}</div>
 
                     <div>
@@ -19,7 +19,16 @@
                             :pattern="dataProperties[key].pattern === '' ? '.*' : dataProperties[key].pattern" />
                     </div>
                 </div>
-                
+            </div>
+
+            <div class="text--smaller italic add-bottom-margin"
+                v-if="item.id !== '' && item.id !== null">
+                <div v-if="item.created_at !== '' && item.created_at !== null">
+                    Created: {{ item.created_at }}<br />
+                </div>
+                <div v-if="item.updated_at !== '' && item.updated_at !== null">
+                    Last Modified: {{ item.updated_at }}
+                </div>
             </div>
 
             <a class="cta"
@@ -68,35 +77,64 @@ export default {
                 //Create item with properties needed for post/put
                 let postItem = this.createPostItem(this.updatedItem);
 
+                //Setup `promise`
+                let promise = null;
+
+                let method = null;
+
                 //Check for new item
                 if (this.item.id === '' || this.item.id === null) {
-                    console.log("Adding new item...");
-
                     //Add the item to the database
-                    this.addToDatabase(postItem);
+                    promise = this.addToDatabase(postItem);
+
+                    method = 'added';
                 }
                 else {
-                    console.log("Updating existing item...");
-
                     //Update existing item
-                    this.updateInDatabase(this.item.id, postItem);
+                    promise = this.updateInDatabase(this.item.id, postItem);
+
+                    method = 'updated';
                 }
 
                 //Trigger parent update
-                this.$emit('save');
-                this.$emit('changeView', { view: 'table' });
+                let _this = this;
+                promise.then(function (response) {
+                    //Set confirmation message
+                    _this.$emit('confirmation', {
+                        status: 'success',
+                        message: `Success! ${item.first_name} ${item.last_name} was ${method}.`
+                    });
+
+                    //Trigger data reload
+                    _this.$emit('save');
+                    
+                    //Change view back to table
+                    _this.$emit('changeView', { view: 'table' });
+                })
+                .catch(function (error) {
+                    console.log('Request failed: ', error);
+
+                    //Show error message
+                    _this.updateConfirmation(
+                        'error',
+                        `Oops! Something didn't go as expected. Please try again.`
+                    );
+
+                    _this.$ScrollToTop;
+                });
             }
             else {
                 //Show Error Message
-                this.updateConfirmation('error', "Something isn't quite right. Please check for errors.");
+                this.updateConfirmation(
+                    'error', 
+                    `Something isn't quite right. Please check for errors.`
+                );
 
                 //Scroll to top
                 this.$ScrollToTop;
             }
         },
         cancel: function() {
-            console.log("canceled");
-
             //Let parent know we're done
             this.$emit('changeView', { view: 'table' });
         },
@@ -117,49 +155,22 @@ export default {
             let url = 'https://challenge.acstechnologies.com/api/contact/';
             let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
 
-            //Allow access to `this` within post
-            let _this = this;
-
-            axios.post(url, item, {
+            let promise = axios.post(url, item, {
                 headers: headers
-            })
-            .then(function (response) {
-                console.log(response);
-                _this.$emit('confirmation', {
-                    status: 'success',
-                    message: 'Added to db'
-                });
-                // return response;
-            })
-            .catch(function (error) {
-                console.log('Request failed: ', error);
-                // return error;
             });
+
+            return promise;
         },
         updateInDatabase(id, item) {
             //Update database data
             let url = `https://challenge.acstechnologies.com/api/contact/${id}`;
             let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
 
-            //Allow access to `this` within put
-            let _this = this;
-
-            axios.put(url, item, {
+            let promise = axios.put(url, item, {
                 headers: headers
-            })
-            .then(function (response) {
-                console.log(response);
-
-                _this.$emit('confirmation', {
-                    status: 'success',
-                    message: 'Update in db'
-                });
-                // return response;
-            })
-            .catch(function (error) {
-                console.log('Request failed: ', error);
-                return error;
             });
+
+            return promise;
         },
         createConfirmation(status, message) {
             return {
