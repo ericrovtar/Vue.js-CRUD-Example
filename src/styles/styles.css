@@ -441,7 +441,7 @@ a {
   padding: 10px 20px;
   cursor: pointer;
   transition: all .25s ease; }
-  .cta:hover {
+  .cta:hover, .cta.active {
     background: #467284;
     color: #FFF;
     text-decoration: none; }

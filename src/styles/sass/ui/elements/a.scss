@@ -9,7 +9,8 @@
 
     transition: all .25s ease;
 
-    &:hover {
+    &:hover,
+    &.active {
         background: $dark-blue;
         color: #FFF;
         text-decoration: none;
