@@ -1,3 +1,15 @@
+/***************
+ * Displays a form to adding a data entry or editing an existing entry.
+ *
+ * item:           the item that will be edited; when adding a new item
+ *                 pass in an empty item
+ *
+ * dataProperties: an array of properties related to each database entry,
+ *                 including required fields and required patterns
+ *
+ * $emits: confirmation, save, changeView
+ **/
+
 <template>
     <div class="lock-width center-by-margin">
         <h1 v-if="item.id === '' || item.id === null">Add Record</h1>

@@ -1,3 +1,13 @@
+/***************
+ * Displays a table of data with editing and view options
+ *
+ * data:           the data to populate the table with
+ *
+ * dataProperties: an array of properties related to each database entry,
+ *                 including required fields and required patterns
+ *
+ * $emits: confirmation, save, changeView
+ **/
 <template>
     <div>
         <Dialog 

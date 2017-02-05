@@ -1,3 +1,6 @@
+/***************
+ * The main application component
+ **/
 <template>
   <div id="app">
     <div class="content-wrapper">

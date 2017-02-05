@@ -1,4 +1,13 @@
-//Creates a table cell for each value in key in the item
+/***************
+ * Creates a table cell for each value in key in the item
+ *
+ * item:           the item to populate the table row with
+ *
+ * dataProperties: an array of properties related to each database entry,
+ *                 including required fields and required patterns
+ *
+ * $emits: toggleSelect
+ **/
 <template>
     <tr :class="selected ? 'selected' : ''">
         <td headers="row-select" class="white-space--no-wrap">

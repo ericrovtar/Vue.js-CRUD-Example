@@ -1,3 +1,10 @@
+/***************
+ * Displays a confirmation / error message
+ *
+ * confirmation: an object representing a confirmation
+ *     status:  the status code of the message [ success | error ]
+ *     message: the message to display to the user
+ **/
 <template>
     <transition name="fade">
         <div v-if="confirmation.status !== '' && confirmation.status !== null"
