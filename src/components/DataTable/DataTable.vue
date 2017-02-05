@@ -29,47 +29,51 @@
         </div>
 
         <div>
-            <div v-if="showFilter" class="box--dark-gray add-bottom-margin">
-                <div class="add-padding">      
-                    <div class="bold">
-                        Filter
-                    </div>
+            <transition name="fade">
+                <div v-if="showFilter" class="box--dark-gray add-bottom-margin">
+                    <div class="add-padding">      
+                        <div class="bold">
+                            Filter
+                        </div>
 
-                    <div>
-                        What Column Are We Searching In?
-                        <select v-model="filterProperty">
-                            <option v-for="(value, key, index) in dataProperties" 
-                                :key="index" 
-                                :value="key">
-                                {{ value.value }}
-                            </option>
-                        </select>
-                    </div>
+                        <div>
+                            What Column Are We Searching In?
+                            <select v-model="filterProperty">
+                                <option v-for="(value, key, index) in dataProperties" 
+                                    :key="index" 
+                                    :value="key">
+                                    {{ value.value }}
+                                </option>
+                            </select>
+                        </div>
 
-                    <div>
-                        What Are We Searching For?
-                        <input type="text" v-model="filterText" />
-                    </div>
-                </div>
-            </div>
-
-            <div v-if="showColumnSelect" class="box--dark-gray add-bottom-margin">
-                <div class="add-padding">    
-                    <div class="bold">
-                        What Columns Do You Want to See?
-                    </div>
-                    <div class="flex wrap">
-                        <div v-for="(value, key, index) in dataProperties"
-                            class="one-third">
-                            <input type="checkbox"
-                                v-model="dataProperties[key].showDefault"
-                                :value="key">
-                                {{ value.value }}
-                            </input>
+                        <div>
+                            What Are We Searching For?
+                            <input type="text" v-model="filterText" />
                         </div>
                     </div>
-                </div>  
-            </div>
+                </div>
+            </transition>
+
+            <transition name="fade">
+                <div v-if="showColumnSelect" class="box--dark-gray add-bottom-margin">
+                    <div class="add-padding">    
+                        <div class="bold">
+                            What Columns Do You Want to See?
+                        </div>
+                        <div class="flex wrap">
+                            <div v-for="(value, key, index) in dataProperties"
+                                class="one-third">
+                                <input type="checkbox"
+                                    v-model="dataProperties[key].showDefault"
+                                    :value="key">
+                                    {{ value.value }}
+                                </input>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </transition>
         </div>
 
         <div class="overflow-x--scroll add-bottom-margin">
@@ -92,14 +96,14 @@
                         <th id="table-controls"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <transition-group name="flip-list" tag="tbody">
                     <dataTableRow v-for="item in filteredSortedData" 
                         :key="item.id" 
                         :item="item"
                         :dataProperties="dataProperties"
                         @edit="editRow(item)"
                         @delete="deleteRow(item.id)" />
-                </tbody>
+                </transition-group>
             </table>
         </div>
     </div>

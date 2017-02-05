@@ -624,4 +624,15 @@ th {
   width: 100%;
   overflow-x: scroll; }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s; }
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0; }
+
+.flip-list-move {
+  transition: transform 1s; }
+
 /*# sourceMappingURL=styles.css.map */
