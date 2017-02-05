@@ -31,7 +31,7 @@
                     v-else
                     class="cta" 
                     @click="changeView('add')">
-                    <i class="fa fa-plus"></i> Add Contact&hellip;
+                    <i class="fa fa-plus"></i> Add&hellip;
                 </a>
             </div>
 
