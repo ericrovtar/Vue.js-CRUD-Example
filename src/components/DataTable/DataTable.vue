@@ -3,9 +3,47 @@
         <div class="[ flex justify-content--flex-start ] add-bottom-margin">
             <div>
                 <a title="Add Entry"
+                    v-if="selectedItems.length > 0"
+                    class="cta disabled">
+                    <i class="fa fa-plus"></i> Add Contact&hellip;
+                </a>
+
+                <a title="Add Entry"
+                    v-else
                     class="cta" 
                     @click="changeView('add')">
                     <i class="fa fa-plus"></i> Add Contact&hellip;
+                </a>
+            </div>
+
+            <div>
+                <a title="Edit Data"
+                    v-if="selectedItems.length !== 1"
+                    class="cta disabled">
+                    <i class="fa fa-pencil"></i> Edit&hellip;
+                </a>
+
+                <a title="Edit Data"
+                    v-else
+                    class="cta"
+                    @click="editRow(selectedItems[0])">
+                    <i class="fa fa-pencil"></i> Edit&hellip;
+                </a>
+            </div>
+
+            <div>
+                <a title="Delete Data"
+                    v-if="selectedItems.length < 1"
+                    class="cta disabled">
+                    <i class="fa fa-remove"></i> Delete
+                </a>
+
+                <a title="Delete Data"
+                    v-else
+                    class="cta"
+                    :class="selectedItems.length < 1 ? 'disabled' : ''"
+                    @click="">
+                    <i class="fa fa-remove"></i> Delete
                 </a>
             </div>
 
@@ -14,7 +52,7 @@
                     class="cta"
                     :class="showFilter ? 'active' : ''"
                     @click="toggleFilter">
-                    <i class="fa fa-filter"></i> Filter Data
+                    <i class="fa fa-filter"></i> Filter
                 </a>
             </div>
 
@@ -23,7 +61,7 @@
                     class="cta"
                     :class="showColumnSelect ? 'active' : ''"
                     @click="toggleColumnSelect">
-                    <i class="fa fa-columns"></i> Choose Columns
+                    <i class="fa fa-columns"></i> Columns
                 </a>
             </div>
         </div>
@@ -80,6 +118,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th id="row-select"></th>
                         <th v-for="(value, key, index) in dataProperties"
                             v-if="value.showDefault"
                             :key="index"
@@ -101,8 +140,7 @@
                         :key="item.id" 
                         :item="item"
                         :dataProperties="dataProperties"
-                        @edit="editRow(item)"
-                        @delete="deleteRow(item.id)" />
+                        @toggleSelect="itemSelectToggle(item.id)" />
                 </transition-group>
             </table>
         </div>
@@ -126,7 +164,8 @@ export default {
             filterText: '',
             showColumnSelect: false,
             sortProperty: 'last_name',
-            sortOrder: 'asc'
+            sortOrder: 'asc',
+            selectedItems: []
         }
     },
     computed: {
@@ -135,19 +174,18 @@ export default {
         }
     },
     methods: {
-        // loadProperties: function(sampleItem) {
-        //     for (let prop in sampleItem) {
-        //         this.dataProperties.push({
-        //             value: this.formatKey(prop),
-        //             key: prop
-        //         })
-        //     };
-
-        //     console.log(this.dataProperties);
-        // },
-        // formatKey: function(key) {
-        //     return key.replace('_', ' ').capitalizeFirstLetter();
-        // },
+        itemSelectToggle: function(id) {
+            //See if id exists in `selectedItems`
+            let i = this.selectedItems.indexOf(id);
+            if (i >= 0) {
+                //Remove it
+                this.selectedItems.splice(i, 1);
+            }
+            else {
+                //Add it
+                this.selectedItems.push(id);
+            }
+        },
         toggleFilter: function() {
             this.showFilter = !this.showFilter;
         },
@@ -236,11 +274,20 @@ export default {
                 this.setSortOrder('asc');
             }
         },
-        editRow: function(item) {
-            this.$emit('changeView', { view: 'edit', item: item });
-        },
         changeView: function(view) {
             this.$emit('changeView', { view: view });
+        },
+        editRow: function(itemId) {
+            //Make `itemId` available in `find`
+            let _itemId = itemId;
+
+            //Find the item
+            let item = this.data.data.find(function (item) {
+                return item.id === _itemId;
+            });
+
+            //Change view to edit item
+            this.$emit('changeView', { view: 'edit', item: item });
         },
         deleteRow: function(itemId) {
             //Delete record

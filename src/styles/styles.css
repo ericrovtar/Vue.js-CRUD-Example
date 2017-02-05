@@ -441,10 +441,15 @@ a {
   padding: 10px 20px;
   cursor: pointer;
   transition: all .25s ease; }
-  .cta:hover, .cta.active {
-    background: #467284;
-    color: #FFF;
+  .cta:hover {
     text-decoration: none; }
+  .cta:not(.disabled):hover, .cta.active {
+    background: #467284;
+    color: #FFF; }
+  .cta.disabled {
+    border-color: #CCC;
+    color: #CCC;
+    cursor: not-allowed; }
 
 input[type="text"],
 input[type="email"], textarea, select {
@@ -499,7 +504,7 @@ tbody {
   tbody tr {
     border-bottom: 1px solid #CCC;
     transition: all .25s ease; }
-    tbody tr:hover {
+    tbody tr:hover, tbody tr.selected {
       background-color: #EEE; }
 
 th {

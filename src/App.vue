@@ -46,7 +46,6 @@ import axios from 'axios';
 import Confirmation from './components/Confirmation';
 import DataTable from './components/DataTable/DataTable';
 import DataEdit from './components/DataEdit';
-import ColumnSelect from './components/ColumnSelect';
 
 export default {
   name: 'app',
@@ -54,7 +53,6 @@ export default {
     Confirmation,
     DataTable,
     DataEdit,
-    ColumnSelect
   }, 
   data () {
     return {

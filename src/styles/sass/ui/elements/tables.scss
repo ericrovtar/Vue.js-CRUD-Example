@@ -14,7 +14,8 @@ tbody {
 
         transition: all .25s ease;
 
-        &:hover {
+        &:hover,
+        &.selected {
             background-color: $light-gray;
         }
     }

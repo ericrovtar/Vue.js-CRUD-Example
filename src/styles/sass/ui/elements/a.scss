@@ -9,10 +9,20 @@
 
     transition: all .25s ease;
 
-    &:hover,
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:not(.disabled):hover,
     &.active {
         background: $dark-blue;
         color: #FFF;
-        text-decoration: none;
+    }
+
+    &.disabled {
+        border-color: $medium-gray;
+        color: $medium-gray;
+
+        cursor: not-allowed;
     }
 }
