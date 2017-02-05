@@ -53,7 +53,6 @@ export default {
     props: [ 'show', 'message', 'options', 'showCancel' ],
     data () {
         return {
-            //isDialogVisible: false || this.show
         }
     },
     computed: {
