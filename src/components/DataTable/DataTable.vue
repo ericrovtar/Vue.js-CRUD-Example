@@ -193,8 +193,6 @@ export default {
             this.showColumnSelect = !this.showColumnSelect;
         },
         filter: function(data) {
-            console.log('filtering');
-
             //Make sure data has loaded to table
             if (data !== undefined) {
                 //Make sure we have a filter set
@@ -233,8 +231,6 @@ export default {
             }
         },
         sort: function(data) {
-            console.log('sorting');
-
             if (data !== undefined) {
                 let _this = this;
                 
