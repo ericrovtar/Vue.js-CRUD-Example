@@ -59,11 +59,21 @@ export default {
             }
         }
     },
+    mounted () {
+        //Clear parent confirmation message
+        this.updateParentConfirmation(null, null);
+    },
     methods: {
         checkFormValidity: function() {
             var form = document.getElementById(this.updateForm);
 
             return form.checkValidity();
+        },
+        updateParentConfirmation: function(status, message) {
+            this.$emit('confirmation', {
+                status: status,
+                message: message
+            });
         },
         updateConfirmation: function(status, message) {
             this.confirmation = {
@@ -96,14 +106,15 @@ export default {
                     method = 'updated';
                 }
 
-                //Trigger parent update
+                //Make `this` available in promise
                 let _this = this;
+                
+                //Handle promise
                 promise.then(function (response) {
-                    //Set confirmation message
-                    _this.$emit('confirmation', {
-                        status: 'success',
-                        message: `Success! ${item.first_name} ${item.last_name} was ${method}.`
-                    });
+                    _this.updateParentConfirmation(
+                        'success',
+                        `Success! ${postItem.first_name} ${postItem.last_name} was ${method}.`
+                    );
 
                     //Trigger data reload
                     _this.$emit('save');
@@ -172,12 +183,12 @@ export default {
 
             return promise;
         },
-        createConfirmation(status, message) {
-            return {
-                status: status,
-                message: message
-            }
-        }
+        // createConfirmation(status, message) {
+        //     return {
+        //         status: status,
+        //         message: message
+        //     }
+        // }
     }
 }
 </script>

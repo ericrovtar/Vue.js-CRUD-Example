@@ -198,14 +198,24 @@ export default {
             console.log('Request failed: ', error);
         });
     },
+    updateConfirmation: function(status, message) {
+        this.confirmation = {
+            status: status,
+            message: message
+        };
+    },
     changeView: function(args) {
+        //Set selected item
         if (args.item !== undefined) {
+            //Use existing item
             this.selectedItem = args.item;
         }
         else {
+            //Create an empty item
             this.selectedItem = this.newItem();
         }
-
+        
+        //Change view
         this.view = args.view;
 
         //Scroll to top
