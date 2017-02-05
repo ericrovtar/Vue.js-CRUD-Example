@@ -1,0 +1,98 @@
+.flex {
+    @include flexbox;
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    @include align-items(center);
+    @include align-content(stretch);
+
+    height: 100%;
+    width: 100%;
+
+    &.align-content {
+        &--top {
+            @include align-content(flex-start);
+        }
+    }
+
+    &.justify-content {
+        &--flex-start {
+            @include justify-content(flex-start);
+        }
+
+        &--center {
+            @include justify-content(center);
+        }
+    }
+
+    &.align-items {
+        &--flex-start {
+            @include align-items(flex-start);
+        }
+
+        &--stretch {
+            @include align-items(stretch);
+        }
+
+        &--flex-end {
+            @include align-items(flex-end);
+        }
+    }
+
+    &:not(.vertical) > * {
+        margin-right: $gutter;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &.no-gutter > * {
+        margin-right: 0;
+    }
+
+    &.wrap {
+        @include flex-wrap(wrap);
+
+        //Remove gutter for wrapping
+        & > * {
+            margin-right: 0;
+        }
+    }
+
+    &.vertical {
+        @include flex-flow(column nowrap);
+
+        &.center {
+            @include justify-content(center);
+        }
+
+        // .one-whole {
+        //     height: 100%;
+        //     width: inherit;
+        // }
+
+        // .one-half {
+        //     height: 50%;
+        //     width: inherit;
+        // }
+
+        // .one-quarter {
+        //     height: 25%;
+        //     width: inherit;
+        // }
+    }
+        
+    @include media-query("portable") {
+        &.portable--stack {
+            @include flex-direction(column);
+
+            &.reverse {
+                @include flex-direction(column-reverse);
+            }
+
+            & > * {
+                margin-right: 0;
+            }
+        }
+    }
+}

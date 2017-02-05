@@ -6,6 +6,7 @@
 
 //Mixins
 @import './includes/mixins/media-query.scss';
+@import './includes/mixins/flexbox.scss';
 
 //Fonts
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
@@ -21,4 +22,5 @@
 @import './ui/elements/form.scss';
 @import './ui/elements/tables.scss';
 
+@import './ui/flex.scss';
 @import './ui/containers.scss';

@@ -1,6 +1,22 @@
 <template>
   <div id="app">
     <div class="content-wrapper">
+        <div class="[ flex justify-content--flex-start ] add-bottom-margin">
+            <div>
+                <img src="./assets/acs-logo.png" />
+            </div>
+
+            <div class="text--bigger bold" style="padding-top: 8px">
+                Front End Code Challenge &ndash; Eric Rovtar
+            </div>
+        </div>
+
+        <p>
+            Description goes here
+        </p>
+    </div>
+
+    <div class="content-wrapper">
         <confirmation
             :confirmation="confirmation" />
 
