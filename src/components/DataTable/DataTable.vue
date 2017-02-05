@@ -1,67 +1,75 @@
 <template>
     <div>
-        <div class="box--dark-gray add-bottom-margin">
-            <div class="add-padding">      
-                <h1>Display Options</h1>
+        <div class="[ flex justify-content--flex-start ] add-bottom-margin">
+            <div>
+                <a title="Add Entry"
+                    class="cta" 
+                    @click="changeView('add')">
+                    <i class="fa fa-plus"></i> Add Contact
+                </a>
+            </div>
 
-                <div class="add-bottom-margin">
-                    <div class="bold">
-                        Filter
-                    </div>
+            <div>
+                <a title="Filter Data"
+                    class="cta"
+                    @click="toggleFilter">
+                    <i class="fa fa-filter"></i> Filter Data
+                </a>
+            </div>
 
-                    <div>
-                        What Column Are We Searching In?
-                        <select v-model="filterProperty">
-                            <option v-for="(value, key, index) in dataProperties" 
-                                :key="index" 
-                                :value="key">
-                                {{ value.value }}
-                            </option>
-                        </select>
-                    </div>
-
-                    <div>
-                        What Are We Searching For?
-                        <input type="text" v-model="filterText" />
-                    </div>
-                </div>
-
-                <div>
-                    <div class="bold">
-                        What Columns Do You Want to See?
-                    </div>
-                    <div v-for="(value, key, index) in dataProperties">
-                        <input type="checkbox"
-                            v-model="dataProperties[key].showDefault"
-                            :value="key">
-                            {{ value.value }}
-                        </input>
-                    </div>
-                </div>
-            </div>  
+            <div>
+                <a title="Choose Columns to Display"
+                    class="cta"
+                    @click="toggleColumnSelect">
+                    <i class="fa fa-columns"></i> Choose Columns
+                </a>
+            </div>
         </div>
 
         <div class="overflow-x--scroll add-bottom-margin">
             <table>
                 <caption>
-                    Options: 
-                    <a title="Add Entry"
-                        class="cursor--pointer text--medium-blue" 
-                        @click="changeView('add')">
-                        <i class="fa fa-plus"></i>
-                    </a>
+                    <div v-if="showFilter" class="box--dark-gray add-bottom-margin">
+                        <div class="add-padding">      
+                            <div class="bold">
+                                Filter
+                            </div>
 
-                    <a title="Filter Data"
-                        class="cursor--pointer text--medium-blue"
-                        @click="changeView('filter')">
-                        <i class="fa fa-filter"></i>
-                    </a>
+                            <div>
+                                What Column Are We Searching In?
+                                <select v-model="filterProperty">
+                                    <option v-for="(value, key, index) in dataProperties" 
+                                        :key="index" 
+                                        :value="key">
+                                        {{ value.value }}
+                                    </option>
+                                </select>
+                            </div>
 
-                    <a title="Choose Columns to Display"
-                        class="cursor--pointer text--medium-blue"
-                        @click="changeView('columns')">
-                        <i class="fa fa-columns"></i>
-                    </a>
+                            <div>
+                                What Are We Searching For?
+                                <input type="text" v-model="filterText" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="showColumnSelect" class="box--dark-gray add-bottom-margin">
+                        <div class="add-padding">    
+                            <div class="bold">
+                                What Columns Do You Want to See?
+                            </div>
+                            <div class="flex wrap">
+                                <div v-for="(value, key, index) in dataProperties"
+                                    class="one-third">
+                                    <input type="checkbox"
+                                        v-model="dataProperties[key].showDefault"
+                                        :value="key">
+                                        {{ value.value }}
+                                    </input>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
                 </caption>
                 
                 <thead>
@@ -107,8 +115,10 @@ export default {
     },
     data () {
         return {
+            showFilter: false,
             filterProperty: '',
             filterText: '',
+            showColumnSelect: false,
             sortProperty: 'last_name',
             sortOrder: 'asc'
         }
@@ -132,6 +142,12 @@ export default {
         // formatKey: function(key) {
         //     return key.replace('_', ' ').capitalizeFirstLetter();
         // },
+        toggleFilter: function() {
+            this.showFilter = !this.showFilter;
+        },
+        toggleColumnSelect: function() {
+            this.showColumnSelect = !this.showColumnSelect;
+        },
         filter: function(data) {
             console.log('filtering');
 

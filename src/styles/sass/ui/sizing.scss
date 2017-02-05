@@ -1,0 +1,121 @@
+//Heights
+.fill-screen-height {
+    min-height: 100vh;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.half-height {
+    height: 50%;
+}
+
+//Widths
+.one-whole {
+    width: 100%;
+}
+
+.nine-tenths {
+    width: 90%;
+}
+
+.two-thirds {
+    width: 66%;
+}
+
+.one-half {
+    width: 50%;
+}
+
+.one-third {
+    width: 33%;
+}
+
+.one-quarter {
+    width: 25%;
+}
+
+    @include media-query("portable") {
+        .portable {
+            &--one-whole {
+                width: 100%;
+            }
+
+            &-nine-tenths {
+                width: 90%;
+            }
+
+            &--two-thirds {
+                width: 66%;
+            }
+
+            &--one-half {
+                width: 50%;
+            }
+
+            &--one-third {
+                width: 33%;
+            }
+
+            &--one-quarter {
+                width: 25%;
+            }
+        }
+    }
+
+    @include media-query("palm") {
+        .palm {
+            &--one-whole {
+                width: 100%;
+            }
+
+            &--nine-tenths {
+                width: 90%;
+            }
+
+            &--two-thirds {
+                width: 66%;
+            }
+
+            &--one-half {
+                width: 50%;
+            }
+
+            &--one-third {
+                width: 33%;
+            }
+
+            &--one-quarter {
+                width: 25%;
+            }
+        }
+    }
+
+//Overflow
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+.desk-gutter--3-by-3 {
+    @include media-query("desk") {
+        & > * {
+            &:nth-child(3n + 1) {
+                padding-right: $gutter / 2;
+            }
+
+            &:nth-child(3n + 2) {
+                padding-left: $gutter / 2;
+                padding-right: $gutter / 2;
+            } 
+
+            &:nth-child(3n + 3) {
+                padding-left: $gutter /2;
+            }
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+    }
+}
