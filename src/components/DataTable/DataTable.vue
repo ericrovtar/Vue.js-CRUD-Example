@@ -24,7 +24,7 @@
                 <a title="Add Entry"
                     v-if="selectedItems.length > 0"
                     class="cta disabled">
-                    <i class="fa fa-plus"></i> Add Contact&hellip;
+                    <i class="fa fa-plus"></i> Add&hellip;
                 </a>
 
                 <a title="Add Entry"
