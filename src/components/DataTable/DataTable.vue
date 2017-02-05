@@ -42,7 +42,7 @@
                     v-else
                     class="cta"
                     :class="selectedItems.length < 1 ? 'disabled' : ''"
-                    @click="">
+                    @click="deleteRows">
                     <i class="fa fa-remove"></i> Delete
                 </a>
             </div>
@@ -273,25 +273,43 @@ export default {
         changeView: function(view) {
             this.$emit('changeView', { view: view });
         },
-        editRow: function(itemId) {
+        findItem: function(itemId) {
             //Make `itemId` available in `find`
             let _itemId = itemId;
-
-            //Find the item
-            let item = this.data.data.find(function (item) {
+            
+            return this.data.data.find(function (item) {
                 return item.id === _itemId;
             });
+        },
+        editRow: function(itemId) {
+            let item = this.findItem(itemId);
 
             //Change view to edit item
             this.$emit('changeView', { view: 'edit', item: item });
         },
-        deleteRow: function(itemId) {
-            //Delete record
-            this.deleteFromDatabase(itemId);
+        deleteRows: function() {
+            //Make `this` available inside forEach
+            let _this = this;
+
+            //Iterated through each selected item
+            this.selectedItems.forEach(function (itemId) {
+                _this.deleteRow(itemId);
+            });
 
             //Reload data
             this.$emit('save', this.item);
             //this.$emit('changeView', { view: 'table' });
+        },
+        deleteRow: function(itemId) {
+            //Delete item from data
+            let item = this.findItem(itemId);
+            let index = this.data.data.findIndex(function (item) {
+                return item.id === itemId;
+            });
+            this.data.data.splice(index, 1);
+
+            //Delete record from database
+            this.deleteFromDatabase(itemId);
         },
         deleteFromDatabase: function(itemId) {
             //Post New Data
