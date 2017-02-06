@@ -643,6 +643,10 @@ th {
   overflow-x: scroll; }
 
 .columns--3 {
+  -webkit-columns: auto 3;
+  /* Chrome, Safari, Opera */
+  -moz-columns: auto 3;
+  /* Firefox */
   columns: auto 3; }
 
 .fade-enter-active,

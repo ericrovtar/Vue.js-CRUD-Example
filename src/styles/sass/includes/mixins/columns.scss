@@ -1,0 +1,52 @@
+@mixin columns($value: auto initial) {
+    -webkit-columns: $value;    /* Chrome, Safari, Opera */
+    -moz-columns: $value;       /* Firefox */
+    columns: $value;
+}
+
+@mixin column-count($value: auto) {
+    -webkit-column-count: $value;   /* Chrome, Safari, Opera */
+    -moz-column-count: $value;      /* Firefox */
+    column-count: $value;
+}
+
+@mixin column-gap($value: normal) {
+    -webkit-column-gap: $value;   /* Chrome, Safari, Opera */
+    -moz-column-gap: $value;      /* Firefox */
+    column-gap: $value;
+}
+
+@mixin column-rule($value: medium none currentColor) {
+    -webkit-column-rule: $value;   /* Chrome, Safari, Opera */
+    -moz-column-rule: $value;      /* Firefox */
+    column-rule: $value;
+}
+
+@mixin column-rule-color($value: currentColor) {
+    -webkit-column-rule-color: $value;   /* Chrome, Safari, Opera */
+    -moz-column-rule-color: $value;      /* Firefox */
+    column-rule-color: $value;
+}
+
+@mixin column-rule-style($value: none) {
+    -webkit-column-rule-style: $value;   /* Chrome, Safari, Opera */
+    -moz-column-rule-style: $value;      /* Firefox */
+    column-rule-style: $value;
+}
+
+@mixin column-rule-width($value: medium) {
+    -webkit-column-rule-width: $value;   /* Chrome, Safari, Opera */
+    -moz-column-rule-width: $value;      /* Firefox */
+    column-rule-width: $value;
+}
+
+@mixin column-span($value: 1) {
+    -webkit-column-span: $value;   /* Chrome, Safari, Opera */
+    column-span: $value;
+}
+
+@mixin column-width($value: auto) {
+    -webkit-column-width: $value;   /* Chrome, Safari, Opera */
+    -moz-column-width: $value;      /* Firefox */
+    column-width: $value;
+}

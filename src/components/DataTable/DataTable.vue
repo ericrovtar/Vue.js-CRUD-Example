@@ -97,9 +97,8 @@
                         <div class="bold">
                             What Columns Do You Want to See?
                         </div>
-                        <div class="flex wrap">
-                            <div v-for="(value, key, index) in dataProperties"
-                                class="one-third">
+                        <div class="columns--3">
+                            <div v-for="(value, key, index) in dataProperties">
                                 <input type="checkbox"
                                     v-model="dataProperties[key].showDefault"
                                     :value="key">

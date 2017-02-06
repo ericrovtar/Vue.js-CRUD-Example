@@ -1,5 +1,5 @@
 .columns {
     &--3 {
-        columns: auto 3;
+        @include columns(auto 3);
     }
 }
