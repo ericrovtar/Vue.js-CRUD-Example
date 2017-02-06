@@ -1,5 +1,11 @@
-.portable--hide {
-    @include media-query("portable") {
+@include media-query("desk") {
+    .desk--hide {
+        display: none;
+    }
+}
+
+@include media-query("portable") {
+    .portable--hide {
         display: none;
     }
 }
