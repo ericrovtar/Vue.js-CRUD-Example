@@ -1,0 +1,5 @@
+.portable--hidden {
+    @include media-query("portable") {
+        display: none;
+    }
+}

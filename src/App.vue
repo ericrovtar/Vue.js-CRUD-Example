@@ -4,12 +4,12 @@
 <template>
   <div id="app">
     <div class="content-wrapper">
-        <div class="[ flex justify-content--flex-start ] add-bottom-margin">
-            <div>
+        <div class="[ flex wrap justify-content--flex-start ] [ add-bottom-margin ]">
+            <div class="mobile--one-whole">
                 <img src="./assets/acs-logo.png" />
             </div>
 
-            <div class="text--bigger bold" style="padding-top: 6px">
+            <div class="[ mobile--one-whole ] [ add-right-margin ] [ text--bigger bold ]" style="padding-top: 6px">
                 Front End Code Challenge &ndash; Eric Rovtar
             </div>
         </div>

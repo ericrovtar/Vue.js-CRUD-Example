@@ -650,4 +650,8 @@ th {
 .flip-list-move {
   transition: transform 1s; }
 
+@media only screen and (max-width: 1023px) {
+  .portable--hidden {
+    display: none; } }
+
 /*# sourceMappingURL=styles.css.map */
