@@ -58,8 +58,8 @@
 
 <script>
 import axios from 'axios';
-import CTA from '../components/_Common/CTA';
-import Confirmation from '../components/_Common/Confirmation';
+import CTA from '../_Common/CTA';
+import Confirmation from '../_Common/Confirmation';
 
 export default {
     name: 'dataEdit',
