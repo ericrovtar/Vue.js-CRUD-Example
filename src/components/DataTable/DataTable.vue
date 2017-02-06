@@ -145,8 +145,8 @@
 
 <script>
 import axios from 'axios';
-import Dialog from '../Dialog';
-import CTA from '../CTA';
+import Dialog from '../_Common/Dialog';
+import CTA from '../_Common/CTA';
 import DataTableRow from './DataTableRow';
 
 export default {

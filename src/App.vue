@@ -42,9 +42,9 @@
 
 <script>
 import axios from 'axios';
-import Confirmation from './components/Confirmation';
+import Confirmation from './components/_Common/Confirmation';
 import DataTable from './components/DataTable/DataTable';
-import DataEdit from './components/DataEdit';
+import DataEdit from './components/DataEdit/DataEdit';
 
 export default {
   name: 'app',
