@@ -642,6 +642,9 @@ th {
   width: 100%;
   overflow-x: scroll; }
 
+.columns--3 {
+  columns: auto 3; }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s; }

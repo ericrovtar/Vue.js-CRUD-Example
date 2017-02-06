@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="displayControls">
             <transition name="fade">
                 <div v-if="showFilter" class="box--dark-gray add-bottom-margin">
                     <div class="add-padding">      
