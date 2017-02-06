@@ -27,6 +27,13 @@
                 </CTA>
             </div>
 
+            <div class="desk--hide">
+                <CTA :state="selectedItems.length !== 1 ? 'disabled' : ''"
+                     @click="editRow(selectedItems[0])">
+                    <i class="fa fa-arrow-up rotate-45"></i> <span class="portable--hide">View...</span>
+                </CTA>
+            </div>
+
             <div>
                 <CTA :state="selectedItems.length !== 1 ? 'disabled' : ''"
                      @click="editRow(selectedItems[0])">

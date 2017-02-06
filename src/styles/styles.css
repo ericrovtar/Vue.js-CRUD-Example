@@ -653,6 +653,9 @@ th {
 .flip-list-move {
   transition: transform 1s; }
 
+.rotate-45 {
+  transform: rotate(45deg); }
+
 @media only screen and (min-width: 1024px) {
   .desk--hide {
     display: none; } }
