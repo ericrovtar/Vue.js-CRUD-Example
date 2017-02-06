@@ -496,6 +496,9 @@ textarea {
 caption {
   text-align: left; }
 
+@media only screen and (max-width: 1023px) {
+  th:not(:first-child):not(:nth-child(2)):not(:nth-child(3)), td:not(:first-child):not(:nth-child(2)):not(:nth-child(3)) {
+    display: none; } }
 thead {
   border-bottom: 2px solid #333; }
 

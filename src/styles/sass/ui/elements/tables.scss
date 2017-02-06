@@ -2,6 +2,14 @@ caption {
     text-align: left;
 }
 
+@include media-query("portable") {
+    th, td {
+        &:not(:first-child):not(:nth-child(2)):not(:nth-child(3)) {
+            display: none;
+        }
+    }
+}
+
 thead {
     border-bottom: 2px solid $black;
 }
