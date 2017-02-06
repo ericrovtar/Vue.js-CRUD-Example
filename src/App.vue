@@ -5,11 +5,11 @@
   <div id="app">
     <div class="content-wrapper">
         <div class="[ flex wrap justify-content--flex-start ] [ add-bottom-margin ]">
-            <div class="mobile--one-whole">
+            <div class="[ mobile--one-whole ] [ add-right-margin ]">
                 <img src="./assets/acs-logo.png" />
             </div>
 
-            <div class="[ mobile--one-whole ] [ add-right-margin ] [ text--bigger bold ]" style="padding-top: 6px">
+            <div class="[ mobile--one-whole ] [ text--bigger bold ]" style="padding-top: 6px">
                 Front End Code Challenge &ndash; Eric Rovtar
             </div>
         </div>
