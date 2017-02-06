@@ -21,67 +21,39 @@
     
         <div class="[ flex justify-content--flex-start ] add-bottom-margin">
             <div>
-                <a title="Add Entry"
-                    v-if="selectedItems.length > 0"
-                    class="cta disabled">
-                    <i class="fa fa-plus"></i> Add&hellip;
-                </a>
-
-                <a title="Add Entry"
-                    v-else
-                    class="cta" 
-                    @click="changeView('add')">
-                    <i class="fa fa-plus"></i> Add&hellip;
-                </a>
+                <CTA :state="selectedItems.length > 0 ? 'disabled' : ''" 
+                     @click="changeView('add')">
+                    <i class="fa fa-plus"></i> <span class="portable--hide">Add&hellip;</span>
+                </CTA>
             </div>
 
             <div>
-                <a title="Edit Data"
-                    v-if="selectedItems.length !== 1"
-                    class="cta disabled">
-                    <i class="fa fa-pencil"></i> Edit&hellip;
-                </a>
-
-                <a title="Edit Data"
-                    v-else
-                    class="cta"
-                    @click="editRow(selectedItems[0])">
-                    <i class="fa fa-pencil"></i> Edit&hellip;
-                </a>
+                <CTA :state="selectedItems.length !== 1 ? 'disabled' : ''"
+                     @click="editRow(selectedItems[0])">
+                    <i class="fa fa-pencil"></i> <span class="portable--hide">Edit&hellip;</span>
+                </CTA>
             </div>
 
             <div>
-                <a title="Delete Data"
-                    v-if="selectedItems.length < 1"
-                    class="cta disabled">
-                    <i class="fa fa-remove"></i> Delete
-                </a>
-
-                <a title="Delete Data"
-                    v-else
-                    class="cta"
-                    :class="selectedItems.length < 1 ? 'disabled' : ''"
-                    @click="confirmDelete">
-                    <i class="fa fa-remove"></i> Delete
-                </a>
+                <CTA :state="selectedItems.length < 1 ? 'disabled' : ''"
+                     @click="confirmDelete">
+                    <i class="fa fa-remove"></i> <span class="portable--hide">Delete</span>
+                </CTA>
             </div>
 
             <div>
-                <a title="Filter Data"
-                    class="cta"
-                    :class="showFilter ? 'active' : ''"
-                    @click="toggleFilter">
-                    <i class="fa fa-filter"></i> Filter
-                </a>
+                <CTA :state="showFilter ? 'active' : ''"
+                     @click="toggleFilter">
+                    <i class="fa fa-filter"></i> <span class="portable--hide">Filter</span>
+                </CTA>
             </div>
 
             <div>
-                <a title="Choose Columns to Display"
-                    class="cta"
-                    :class="showColumnSelect ? 'active' : ''"
-                    @click="toggleColumnSelect">
+                <CTA :state="showColumnSelect ? 'active' : ''"
+                     :class="'portable--hide'"
+                     @click="toggleColumnSelect">
                     <i class="fa fa-columns"></i> Columns
-                </a>
+                </CTA>
             </div>
         </div>
 
@@ -168,6 +140,7 @@
 <script>
 import axios from 'axios';
 import Dialog from '../Dialog';
+import CTA from '../CTA';
 import DataTableRow from './DataTableRow';
 
 export default {
@@ -175,7 +148,8 @@ export default {
     props: [ 'data', 'dataProperties' ],
     components: {
         DataTableRow,
-        Dialog
+        Dialog,
+        CTA
     },
     data () {
         return {

@@ -43,23 +43,30 @@
                 </div>
             </div>
 
-            <a class="cta"
-                @click="save">Save</a>
-            <a class="cta" 
-                @click="cancel">Cancel</a> 
+            <CTA
+                :class="'add-right-margin'"
+                @click="save">
+                Save
+            </CTA>
+            <CTA
+                @click="cancel">
+                Cancel
+            </CTA>
         </form>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import CTA from '../components/CTA';
 import Confirmation from '../components/Confirmation';
 
 export default {
     name: 'dataEdit',
     props: [ 'item', 'dataProperties' ],
     components: {
-        Confirmation
+        Confirmation,
+        CTA
     }, 
     data () {
         return {

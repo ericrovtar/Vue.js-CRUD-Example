@@ -1,4 +1,4 @@
-.portable--hidden {
+.portable--hide {
     @include media-query("portable") {
         display: none;
     }

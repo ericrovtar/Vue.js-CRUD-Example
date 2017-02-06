@@ -28,22 +28,20 @@
                 </div>
 
                 <div>
-                    <a v-for="(value, key, index) in options"
-                        class="cta"
-                        :class="value.class"
+                    <CTA v-for="(value, key, index) in options"
+                        :class="`${value.class} add-right-margin`"
                         :key="index"
                         @click="$emit(value.emit)">
                         <i v-if="value.icon !== null && value.icon !== ''"
                             class="fa"
                             :class="value.icon"></i>
                         {{ value.text }}
-                    </a>
-                    &nbsp;
-                    <a v-if="showCancel"
-                        class="cta"
+                    </CTA>
+
+                    <CTA v-if="showCancel"
                         @click="$emit('hideDialog')">
                         Cancel
-                    </a>
+                    </CTA>
                 </div>
             </div>
         </div>
@@ -51,16 +49,38 @@
 </template>
 
 <script>
+import CTA from './CTA';
+
 export default {
     name: 'dialog',
-    props: [ 'show', 'message', 'options', 'showCancel' ],
-    data () {
-        return {
+    components: {
+        CTA
+    },
+    props: {
+        show: {
+            type: Boolean,
+            default: false
+        },
+        message: {
+            type: String,
+            default: ''
+        },
+        options: {
+            type: Array,
+            default: []
+        },
+        showCancel: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
         isDialogVisible: function() {
             return this.show;
+        }
+    },
+    data () {
+        return {
         }
     },
     methods: {
