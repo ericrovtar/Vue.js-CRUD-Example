@@ -107,11 +107,9 @@
                         </div>
                         <div class="columns--3">
                             <div v-for="(value, key, index) in dataProperties">
-                                <input type="checkbox"
-                                    v-model="dataProperties[key].showDefault"
-                                    :value="key">
+                                <Checkbox v-model="value.showDefault">
                                     {{ value.value }}
-                                </input>
+                                </Checkbox>
                             </div>
                         </div>
                     </div>  
@@ -155,6 +153,7 @@
 import axios from 'axios';
 import ModalDialog from '../_Common/ModalDialog';
 import CTA from '../_Common/CTA';
+import Checkbox from '../_Common/Checkbox';
 import DataTableRow from './DataTableRow';
 
 export default {
@@ -163,7 +162,8 @@ export default {
     components: {
         DataTableRow,
         ModalDialog,
-        CTA
+        CTA,
+        Checkbox
     },
     data () {
         return {

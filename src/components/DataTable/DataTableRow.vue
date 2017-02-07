@@ -11,9 +11,7 @@
 <template>
     <tr :class="selected ? 'selected' : ''">
         <td headers="row-select" class="white-space--no-wrap">
-            <input title="Select"
-                type="checkbox"
-                @click="toggleSelect" />
+            <Checkbox v-model="selected" @click="toggleSelect" />
         </td>
         
         <td v-for="(value, key, index) in item" 
@@ -41,9 +39,14 @@
 </template>
 
 <script>
+import Checkbox from '../_Common/Checkbox';
+
 export default {
     name: 'dataTableRow',
     props: [ 'item', 'dataProperties' ],
+    components: {
+        Checkbox
+    },
     data () {
         return {
             selected: false
@@ -51,7 +54,8 @@ export default {
     },
     methods: {
         toggleSelect: function() {
-            this.selected = !this.selected;
+            console.log("Hi");
+            //this.selected = !this.selected;
 
             this.$emit('toggleSelect');
         },
