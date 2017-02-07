@@ -24,15 +24,6 @@ You mentioned that Vue was a framework you had been looking into and it's also a
 a lot about, so I wanted to see it in action. Being familiar with Angular and React, I figured a lot
 would translate over.
 
-## Not Using State Management
-Like React and other similar frameworks, Vue has a state management extension, Vuex. While I am passing
-a fair bit of data between components, one might argue that using Vuex is appropriate in this scenario;
-however, because I wanted to keep this as simple as possible and since it is a single page application,
-I couldn't justify the need for true state management. 
-
-Would I expand on this application and reach scenarios where I have components interacting across other
-components (ex: ModalDialog & Confirmation).
-
 ## Mobile First
 I adhere strongly to a mobile-first mentality. In this application, that is difficult as we're dealing
 with a table of data. Tables do not lend themselves well to mobile interfaces.
@@ -44,6 +35,21 @@ This led to the inclusion of a View option, which might seem unnecessary on a de
 have all the data laid out before you. This becomes a requirement when dealing with smaller displays. 
 Plus, it's nice to have a good-looking layout that shows all the fields of a single object without any 
 clutter.
+
+## Separating CSS from Vue
+I'm a huge fan of SASS. I also am a fan of Compositional CSS, where more generic, reusable classes are
+created and applied as needed. This unbinds the CSS from the content, and - while you might end up 
+using more classes per element - you also end up with a better understanding of what is being applied
+to each element. Vue's method of handling CSS is stronly tied to each component.
+
+## Not Using State Management
+Like React and other similar frameworks, Vue has a state management extension, Vuex. While I am passing
+a fair bit of data between components, one might argue that using Vuex is appropriate in this scenario;
+however, because I wanted to keep this as simple as possible and since it is a single page application,
+I couldn't justify the need for true state management. 
+
+Would I expand on this application and reach scenarios where I have components interacting across other
+components (ex: ModalDialog & Confirmation).
 
 ## Why Does `dataProperties` Exist?
 Whenever working with any kind of database, you're going to have to have some sort of schema stored 
