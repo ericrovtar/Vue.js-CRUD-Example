@@ -54,17 +54,8 @@ export default {
     },
     methods: {
         toggleSelect: function() {
-            console.log("Hi");
-            //this.selected = !this.selected;
-
             this.$emit('toggleSelect');
         },
-        // editRow: function() {
-        //     this.$emit('edit');
-        // },
-        // deleteRow: function() {
-        //     this.$emit('delete');
-        // }
     },
     mounted() {
         //console.log(this.dataProperties);
