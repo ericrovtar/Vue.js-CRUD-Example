@@ -1,6 +1,19 @@
 //state: disabled, active, enabled
 //emit: 
 //color: 
+/***************
+ * Displays a the data from an item.
+ *
+ * state: the item that will be displayed [ disabled, active, enabled ]
+ *
+ * emit: the function to emit back to the parent (default = click) 
+ *
+ * color: the color of the CTA
+ *
+ * class: additional classes to apply to the CTA
+ *
+ * $emits: {see emit property}
+ **/
 <template>
     <a class="[ cta ] [ white-space--nowrap ]"
         :class="classes"
@@ -39,9 +52,6 @@ export default {
         classes: function() {
             return `${this.state} ${this.color} ${this.class}`;
         }
-    },
-    mounted() {
-        console.log(this.class);
     },
     methods: {
         click: function() {

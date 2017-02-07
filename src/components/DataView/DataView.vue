@@ -1,4 +1,11 @@
-<template>
+/***************
+ * Displays a the data from an item.
+ *
+ * item:           the item that will be displayed;
+ *
+ * $emits: changeView
+ **/
+ <template>
     <div>
         <div class="add-bottom-margin">
             <h1 class="no-bottom-margin">{{item.first_name}} {{item.last_name}}</h1>

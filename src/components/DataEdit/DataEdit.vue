@@ -9,7 +9,6 @@
  *
  * $emits: confirmation, save, changeView
  **/
-
 <template>
     <div class="lock-width center-by-margin">
         <h1 v-if="item.id === null">Add Record</h1>
