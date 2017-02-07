@@ -85,9 +85,15 @@
                             </span>
                         </div>
 
-                        <div>
+                        <div class="add-bottom-margin">
                             What Are We Searching For?
                             <input type="text" v-model="filterText" />
+                        </div>
+
+                        <div>
+                            <CTA @click="clearFilter">
+                                Clear
+                            </CTA>
                         </div>
                     </div>
                 </div>
@@ -216,19 +222,30 @@ export default {
         filter: function(data) {
             //Make sure data has loaded to table
             if (data !== undefined) {
-                //Make sure we have a filter set
-                if (this.filterProperty !== '' && this.filterText !== '') {
-                    let _this = this;
+                try {
+                    //Make sure we have a filter set
+                    if (!String.isNullOrWhitespace(this.filterProperty) && !String.isNullOrWhitespace(this.filterText)) {
+                            let _this = this;
 
-                    return data.filter(function (data) {
-                        // console.log(data);
-                        return data[_this.filterProperty].includes(_this.filterText);
-                    });
+                            return data.filter(function (data) {
+                                // console.log(data);
+                                return data[_this.filterProperty].toString().includes(_this.filterText);
+                            });
+                        
+                    }
+                }
+                catch(err) {
+                    console.log(err);
+                    return data;
                 }
             }
 
             //Nothing to filter, return the whole set
             return data;
+        },
+        clearFilter: function() {
+            this.filterProperty = '';
+            this.filterText = '';
         },
         compareObjects: function(obj1, obj2) {
             if (obj1[this.sortProperty] === null || obj1[this.sortProperty] === undefined) {
