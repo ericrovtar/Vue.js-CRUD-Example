@@ -319,6 +319,7 @@ export default {
             this.dialogOptions = [{ 
                 text: 'Delete', 
                 icon: 'fa-remove', 
+                class: 'red',
                 emit: 'deleteRows'}];
 
             this.dialogText = 'Are you sure you want to proceed? You cannot undo this.';
@@ -334,10 +335,10 @@ export default {
             let requests = [];
 
             //Iterated through each selected item
-            this.selectedItems.forEach(function (itemId) {
-                //_this.deleteRow(itemId);
+            while (this.selectedItems.length > 0) {
+                let itemId = this.selectedItems.shift();
                 requests.push(_this.deleteRowRequest(itemId));
-            });
+            }
 
             axios.all(requests)
                 .then(axios.spread(

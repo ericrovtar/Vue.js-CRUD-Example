@@ -13,10 +13,20 @@
         text-decoration: none;
     }
 
-    &:not(.disabled):hover,
+    &:hover,
     &.active {
         background: $dark-blue;
         color: #FFF;
+    }
+
+    &.red {
+        border-color: $dark-red;
+        color: $dark-red;
+
+        &:hover {
+            background: $dark-red;
+            color: #FFF;
+        }
     }
 
     &.disabled {
@@ -24,5 +34,10 @@
         color: $medium-gray;
 
         cursor: not-allowed;
+
+        &:hover {
+            background: transparent;
+            color: $medium-gray;
+        }
     }
 }

@@ -445,13 +445,22 @@ a {
   transition: all .25s ease; }
   .cta:hover {
     text-decoration: none; }
-  .cta:not(.disabled):hover, .cta.active {
+  .cta:hover, .cta.active {
     background: #467284;
     color: #FFF; }
+  .cta.red {
+    border-color: #b82b2b;
+    color: #b82b2b; }
+    .cta.red:hover {
+      background: #b82b2b;
+      color: #FFF; }
   .cta.disabled {
     border-color: #CCC;
     color: #CCC;
     cursor: not-allowed; }
+    .cta.disabled:hover {
+      background: transparent;
+      color: #CCC; }
 
 input[type="text"],
 input[type="email"], textarea, select {
