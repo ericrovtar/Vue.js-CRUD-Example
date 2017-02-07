@@ -205,11 +205,14 @@ export default {
             headers: headers
         })
         .then(function (response) {
-            // console.log(response);
             _this.data = response.data;
         })
         .catch(function (error) {
             console.log('Request failed: ', error);
+            this.updateConfirmation(
+                'error',
+                `Oops! Something didn't go as expected. Please try again.`
+            );
         });
     },
     updateConfirmation: function(status, message) {

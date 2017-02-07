@@ -57,9 +57,6 @@ export default {
             this.$emit('toggleSelect');
         },
     },
-    mounted() {
-        //console.log(this.dataProperties);
-    }
 }
 </script>
 

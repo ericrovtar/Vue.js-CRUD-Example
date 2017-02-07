@@ -228,7 +228,6 @@ export default {
                         let _this = this;
 
                         return data.filter(function (data) {
-                            // console.log(data);
                             return data[_this.filterProperty].toString().includes(_this.filterText);
                         });
                     }
