@@ -1,4 +1,11 @@
-<template>
+/***************
+ * Displays a custom checkbox using FontAwesome
+ *
+ * value: a truthy value representing if the box is checked or not
+ *
+ * emits: input, click
+ **/
+ <template>
     <span class="cursor--pointer" @click="toggleCheck">
         <i class="fa" style="width: 1em;" :class="classes"></i>
         <slot></slot>
