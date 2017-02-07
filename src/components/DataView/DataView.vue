@@ -36,7 +36,7 @@
         </div>
 
         <div class="text--smaller italic add-bottom-margin"
-            v-if="!String.isNullOrWhitespace(item.id)">
+            v-if="item.id !== null">
             <div v-if="!item.created_at.isNullOrWhitespace()">
                 Created: {{ item.created_at }}<br />
             </div>
