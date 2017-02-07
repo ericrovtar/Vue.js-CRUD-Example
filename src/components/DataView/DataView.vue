@@ -12,7 +12,7 @@
                      class="add-right-margin">
                     <a :href="'mailto:' + item.email"><i class="fa fa-envelope-o"></i></a>
                 </div>
-                <div v-if="item.url !== null || item.url !== ''">
+                <div v-if="!item.url.isNullOrWhitespace()">
                     <a :href="item.url"><i class="fa fa-external-link"></i></a>
                 </div>
             </div>
@@ -36,11 +36,11 @@
         </div>
 
         <div class="text--smaller italic add-bottom-margin"
-            v-if="item.id !== '' && item.id !== null">
-            <div v-if="item.created_at !== '' && item.created_at !== null">
+            v-if="!String.isNullOrWhitespace(item.id)">
+            <div v-if="!item.created_at.isNullOrWhitespace()">
                 Created: {{ item.created_at }}<br />
             </div>
-            <div v-if="item.updated_at !== '' && item.updated_at !== null">
+            <div v-if="!item.updated_at.isNullOrWhitespace()">
                 Last Modified: {{ item.updated_at }}
             </div>
         </div>

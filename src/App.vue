@@ -233,7 +233,6 @@ export default {
         this.$ScrollToTop;
     },
     showConfirmation: function(args) {
-        console.log("Show confirmation...");
         this.confirmation = args;
     },
     save: function(args) {

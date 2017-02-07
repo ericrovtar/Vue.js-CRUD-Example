@@ -32,7 +32,7 @@
                         :class="`${value.class} add-right-margin`"
                         :key="index"
                         @click="$emit(value.emit)">
-                        <i v-if="value.icon !== null && value.icon !== ''"
+                        <i v-if="!value.icon.isNullOrWhitespace()"
                             class="fa"
                             :class="value.icon"></i>
                         {{ value.text }}

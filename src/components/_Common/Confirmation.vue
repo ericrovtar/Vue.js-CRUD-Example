@@ -7,7 +7,7 @@
  **/
 <template>
     <transition name="fade">
-        <div v-if="confirmation.status !== '' && confirmation.status !== null"
+        <div v-if="!String.isNullOrWhitespace(confirmation.status)"
             class="add-bottom-margin add-padding" 
             :class="confirmation.status === 'error' ? 'box--red' : 'box--green'">
             {{ confirmation.message }}
