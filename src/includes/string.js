@@ -18,5 +18,9 @@ String.prototype.isNullOrWhitespace = function () {
  * str: String to check
  */
 String.isNullOrWhitespace = function(str) {
+    if (str === null) {
+        return true;
+    }
+    
     return str.toString().isNullOrWhitespace();
 }
