@@ -225,17 +225,15 @@ export default {
                 try {
                     //Make sure we have a filter set
                     if (!String.isNullOrWhitespace(this.filterProperty) && !String.isNullOrWhitespace(this.filterText)) {
-                            let _this = this;
+                        let _this = this;
 
-                            return data.filter(function (data) {
-                                // console.log(data);
-                                return data[_this.filterProperty].toString().includes(_this.filterText);
-                            });
-                        
+                        return data.filter(function (data) {
+                            // console.log(data);
+                            return data[_this.filterProperty].toString().includes(_this.filterText);
+                        });
                     }
                 }
                 catch(err) {
-                    console.log(err);
                     return data;
                 }
             }

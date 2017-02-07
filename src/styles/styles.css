@@ -439,6 +439,7 @@ a {
 .cta {
   -webkit-appearance: none;
   background: transparent;
+  display: inline-block;
   border: 1px solid #467284;
   padding: 10px 20px;
   cursor: pointer;
