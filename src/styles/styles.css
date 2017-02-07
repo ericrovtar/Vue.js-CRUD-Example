@@ -495,6 +495,73 @@ textarea {
   padding: 1em;
   color: #FFF; }
 
+/*
+* @CSS3 Metro Dropdown
+* @author Martin Ivanov
+* @website http://wemakesitesnet
+* @blog http://acidmartin.wordpress.com
+* @twitter https://twitter.com/#!/wemakesitesnet
+**/
+.css3-metro-dropdown option,
+.css3-metro-dropdown:after,
+.css3-metro-dropdown::after,
+.css3-metro-dropdown select {
+  color: #fff; }
+
+.css3-metro-dropdown select,
+.css3-metro-dropdown:after,
+.css3-metro-dropdown::after {
+  display: block; }
+
+.css3-metro-dropdown {
+  position: relative;
+  display: inline-block;
+  border: 0;
+  width: 100%; }
+
+.css3-metro-dropdown:after {
+  background: #EEE;
+  position: absolute;
+  display: table-cell;
+  padding: 0;
+  top: 1px;
+  right: 0;
+  border-right: 1px solid #69a7c2;
+  content: "\f078";
+  width: 3em;
+  font-family: FontAwesome;
+  color: #CCC;
+  font-size: 1em;
+  line-height: calc(22px + 1em);
+  text-align: center;
+  text-rendering: auto;
+  -webkit-pointer-events: none;
+  -moz-pointer-events: none;
+  pointer-events: none; }
+
+.css3-metro-dropdown:active:after,
+.css3-metro-dropdown:focus:after,
+.css3-metro-dropdown:hover:after {
+  border-color: #467284;
+  color: #a2ccdd; }
+
+.css3-metro-dropdown select {
+  padding: 0 .75rem;
+  vertical-align: middle;
+  outline: 0 none;
+  cursor: pointer;
+  color: #333;
+  height: calc(24px + 1em);
+  width: 100%;
+  font-size: 1em; }
+
+.css3-metro-dropdown option {
+  padding: .5em;
+  background: #fff;
+  color: #333; }
+  .css3-metro-dropdown option:disabled {
+    color: #AAA; }
+
 caption {
   text-align: left; }
 

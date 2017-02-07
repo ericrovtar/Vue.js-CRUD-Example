@@ -74,13 +74,15 @@
 
                         <div>
                             What Column Are We Searching In?
-                            <select v-model="filterProperty">
-                                <option v-for="(value, key, index) in dataProperties" 
-                                    :key="index" 
-                                    :value="key">
-                                    {{ value.value }}
-                                </option>
-                            </select>
+                            <span class="css3-metro-dropdown">
+                                <select v-model="filterProperty">
+                                    <option v-for="(value, key, index) in dataProperties" 
+                                        :key="index" 
+                                        :value="key">
+                                        {{ value.value }}
+                                    </option>
+                                </select>
+                            </span>
                         </div>
 
                         <div>
@@ -131,13 +133,13 @@
                         </th>
                     </tr>
                 </thead>
-                <transition-group name="flip-list" tag="tbody">
+                <tbody>
                     <dataTableRow v-for="item in filteredSortedData" 
                         :key="item.id" 
                         :item="item"
                         :dataProperties="dataProperties"
                         @toggleSelect="itemSelectToggle(item.id)" />
-                </transition-group>
+                </tbody>
             </table>
         </div>
     </div>
