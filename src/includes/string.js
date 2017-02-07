@@ -2,9 +2,14 @@
  * Checks if the string is empty, whitespace or null
  */
 String.prototype.isNullOrWhitespace = function () {
-    var str = this;
+    try {
+        var str = this.toString();
 
-    return this === '' || this === null;
+        return this === '' || this === null;
+    }
+    catch(err) {
+        return false;
+    }
 }
 
 /**
