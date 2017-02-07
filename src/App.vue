@@ -36,15 +36,22 @@
             @changeView="changeView"
             @save="save"
             @confirmation="showConfirmation" />
+
+        <dataView v-if="view === 'view'"
+            :item="selectedItem"
+            @changeView="changeView" />
     </div>
   </div>
 </template>
 
 <script>
+import _string from './includes/string.js';
+
 import axios from 'axios';
 import Confirmation from './components/_Common/Confirmation';
 import DataTable from './components/DataTable/DataTable';
 import DataEdit from './components/DataEdit/DataEdit';
+import DataView from './components/DataView/DataView';
 
 export default {
   name: 'app',
@@ -52,6 +59,7 @@ export default {
     Confirmation,
     DataTable,
     DataEdit,
+    DataView
   }, 
   data () {
     return {

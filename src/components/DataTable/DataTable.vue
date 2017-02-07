@@ -27,9 +27,9 @@
                 </CTA>
             </div>
 
-            <div class="desk--hide">
+            <div>
                 <CTA :state="selectedItems.length !== 1 ? 'disabled' : ''"
-                     @click="editRow(selectedItems[0])">
+                     @click="viewRow(selectedItems[0])">
                     <i class="fa fa-arrow-up rotate-45"></i> <span class="portable--hide">View...</span>
                 </CTA>
             </div>
@@ -299,6 +299,12 @@ export default {
             return this.data.data.find(function (item) {
                 return item.id === _itemId;
             });
+        },
+        viewRow: function(itemId) {
+            let item = this.findItem(itemId);
+
+            //Change view to view item
+            this.$emit('changeView', { view: 'view', item: item });
         },
         editRow: function(itemId) {
             let item = this.findItem(itemId);
