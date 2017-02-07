@@ -14,10 +14,13 @@
             </div>
         </div>
 
-        <p>
-            Description goes here
+        <p class="lock-width">
+            This simple application implements CRUD (create, read, update, delete) functionality
+            over a test database provided by ACS using the JavaScript framework Vue.
         </p>
     </div>
+
+    <hr />
 
     <div class="content-wrapper">
         <confirmation
