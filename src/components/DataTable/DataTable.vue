@@ -85,7 +85,7 @@
                             </span>
                         </div>
 
-                        <div class="add-bottom-margin">
+                        <div>
                             What Are We Searching For?
                             <input type="text" v-model="filterText" />
                         </div>
