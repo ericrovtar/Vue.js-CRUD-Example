@@ -1,0 +1,10 @@
+input[type="text"],
+input[type="email"] {
+    @extend %base-form-styles;
+
+    height: 3rem;
+
+    form.submitted &:not(:focus):invalid {
+        border-color: $red;
+    }
+}

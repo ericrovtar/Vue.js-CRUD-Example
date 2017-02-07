@@ -1,0 +1,11 @@
+textarea {
+    @extend %base-form-styles;
+
+    height: 9rem;
+
+    resize: none;
+
+    &:not(:empty):invalid {
+        border-color: $red;
+    }
+}

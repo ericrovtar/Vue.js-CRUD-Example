@@ -17,7 +17,8 @@
         <confirmation
             :confirmation="confirmation" />
 
-        <form :id="updateForm">
+        <form :id="updateForm"
+              :class="updateFormClass">
             <div v-for="(value, key, index) in item">
                 <div v-if="dataProperties[key].editable" class="add-bottom-margin">
                     <div class="bold">{{ dataProperties[key].value }}</div>
@@ -71,6 +72,7 @@ export default {
         return {
             updatedItem: JSON.parse(JSON.stringify(this.item)),
             updateForm: 'updateForm',
+            updateFormClass: '',
             confirmation: {
                 status: '',
                 message: ''
@@ -100,6 +102,9 @@ export default {
             };
         },
         save: function() {
+            //Add `submitted` class to the form
+            this.updateFormClass = "submitted";
+
             //Check form validity
             if (this.checkFormValidity() === true) {
                 //Create item with properties needed for post/put

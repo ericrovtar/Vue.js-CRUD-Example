@@ -486,11 +486,16 @@ input[type="email"], textarea, select {
   input[type="email"]:disabled, textarea:disabled, select:disabled {
     border-color: #CCC; }
 
+.form--error {
+  background: #cc0000;
+  padding: 1em;
+  color: #FFF; }
+
 input[type="text"],
 input[type="email"] {
   height: 3rem; }
-  input[type="text"]:not([value=""]):not(:focus):invalid,
-  input[type="email"]:not([value=""]):not(:focus):invalid {
+  form.submitted input[type="text"]:not(:focus):invalid, form.submitted
+  input[type="email"]:not(:focus):invalid {
     border-color: #cc0000; }
 
 textarea {
@@ -498,11 +503,6 @@ textarea {
   resize: none; }
   textarea:not(:empty):invalid {
     border-color: #cc0000; }
-
-.form--error {
-  background: #cc0000;
-  padding: 1em;
-  color: #FFF; }
 
 /*
 * @CSS3 Metro Dropdown

@@ -32,33 +32,6 @@
     }
 }
 
-input[type="text"],
-input[type="email"] {
-    @extend %base-form-styles;
-
-    height: 3rem;
-
-    &:not([value=""]):not(:focus):invalid {
-        border-color: $red;
-    }
-}
-
-textarea {
-    @extend %base-form-styles;
-
-    height: 9rem;
-
-    resize: none;
-
-    &:not(:empty):invalid {
-        border-color: $red;
-    }
-}
-
-select {
-    @extend %base-form-styles;
-}
-
 .form--error {
     background: $red;
 
