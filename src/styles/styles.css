@@ -596,6 +596,7 @@ th {
 .modal {
   position: fixed;
   background: rgba(204, 204, 204, 0.8);
+  z-index: 1000;
   top: 0;
   left: 0;
   height: 100vh;
