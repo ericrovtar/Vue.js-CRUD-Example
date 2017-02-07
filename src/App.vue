@@ -16,7 +16,8 @@
 
         <p class="lock-width">
             This simple application implements CRUD (create, read, update, delete) functionality
-            over a test database provided by ACS using the JavaScript framework Vue.
+            over a test database provided by ACS using the JavaScript framework Vue. It also adds
+            some extra functionality, such as filter and display settings.
         </p>
     </div>
 
