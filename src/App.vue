@@ -160,7 +160,7 @@ export default {
           url: {
               value: 'URL',
               required: false,
-              pattern: '',
+              pattern: '(http(s)?://)?([\w-]+\.)+[\w-]+[.com]+(/[/?%&=]*)?',
               postBack: true,
               editable: true,
               showDefault: false
