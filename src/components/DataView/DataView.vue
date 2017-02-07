@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div v-if="!item.address.isNullOrWhitespace()"
+        <div v-if="!item.address.isNullOrWhitespace() || !item.city.isNullOrWhitespace() || !item.state.isNullOrWhitespace() || !item.zip.isNullOrWhitespace()"
              class="add-bottom-margin">
             <div class="bold">Address</div>
             <div>
@@ -27,8 +27,11 @@
             </div>
         </div>
 
-        <div class="add-bottom-margin">
-            <div class="bold ">Phone Numbers</div>
+        <div v-if="!item.phone.isNullOrWhitespace() || !item.work_phone.isNullOrWhitespace()"
+             class="add-bottom-margin">
+            <div class="bold">
+                Phone Number<span v-if="!item.phone.isNullOrWhitespace() && !item.work_phone.isNullOrWhitespace()">s</span>
+            </div>
             <div>
                 Primary: {{item.phone}}<br />
                 Work: {{item.work_phone}}
