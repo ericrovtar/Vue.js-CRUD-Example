@@ -12,7 +12,7 @@
 
 <template>
     <div class="lock-width center-by-margin">
-        <h1 v-if="item.id === '' || item.id === null">Add Record</h1>
+        <h1 v-if="item.id === null">Add Record</h1>
         <h1 v-else>Edit Record</h1>
 
         <confirmation
@@ -34,11 +34,11 @@
             </div>
 
             <div class="text--smaller italic add-bottom-margin"
-                v-if="item.id !== '' && item.id !== null">
-                <div v-if="item.created_at !== '' && item.created_at !== null">
+                v-if="item.id !== null">
+                <div v-if="!item.created_at.isNullOrWhitespace()">
                     Created: {{ item.created_at }}<br />
                 </div>
-                <div v-if="item.updated_at !== '' && item.updated_at !== null">
+                <div v-if="!item.updated_at.isNullOrWhitespace()">
                     Last Modified: {{ item.updated_at }}
                 </div>
             </div>
@@ -112,7 +112,7 @@ export default {
                 let method = null;
 
                 //Check for new item
-                if (this.item.id === '' || this.item.id === null) {
+                if (String.isNullOrWhitespace(this.item.id)) {
                     //Add the item to the database
                     promise = this.addToDatabase(postItem);
 
