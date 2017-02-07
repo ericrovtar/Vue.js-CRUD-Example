@@ -67,3 +67,9 @@ was needed.
 Considering all of this and to help keep this application simple, the best means to store a schema was 
 to encode it in a JavaScript object. Were the project to grow, with user options to extend the database 
 (ex: a CMS), then I'd re-evaluate this decision and come up with a better option.
+
+## Why No Consistent Phone Number Format?
+I considered spending time to give a unified look to the phone numbers, and - while possible - it
+seemed like a misue of time because I would be applying a patch rather than fixing the problem. Were
+this my project, I'd choose to fix the database entries first and store each phone number a string of
+only numbers, without any formatting. Then I'd format the string however I saw fit.
