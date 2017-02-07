@@ -52,7 +52,7 @@
 import CTA from './CTA';
 
 export default {
-    name: 'dialog',
+    name: 'modalDialog',
     components: {
         CTA
     },

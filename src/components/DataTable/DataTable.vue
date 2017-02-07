@@ -10,14 +10,14 @@
  **/
 <template>
     <div>
-        <Dialog 
+        <modalDialog 
             :show="dialogStatus"
             :options="dialogOptions"
             :showCancel="true"
             @deleteRows="deleteRows"
             @hideDialog="hideDialog">
             {{ dialogText }}
-        </Dialog>
+        </modalDialog>
     
         <div class="[ flex justify-content--flex-start ] add-bottom-margin">
             <div>
@@ -145,7 +145,7 @@
 
 <script>
 import axios from 'axios';
-import Dialog from '../_Common/Dialog';
+import ModalDialog from '../_Common/ModalDialog';
 import CTA from '../_Common/CTA';
 import DataTableRow from './DataTableRow';
 
@@ -154,7 +154,7 @@ export default {
     props: [ 'data', 'dataProperties' ],
     components: {
         DataTableRow,
-        Dialog,
+        ModalDialog,
         CTA
     },
     data () {

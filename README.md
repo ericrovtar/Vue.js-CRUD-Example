@@ -31,7 +31,7 @@ however, because I wanted to keep this as simple as possible and since it is a s
 I couldn't justify the need for true state management. 
 
 Would I expand on this application and reach scenarios where I have components interacting across other
-components (ex: Dialog & Confirmation).
+components (ex: ModalDialog & Confirmation).
 
 ## Mobile First
 I adhere strongly to a mobile-first mentality. In this application, that is difficult as we're dealing
