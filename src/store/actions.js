@@ -1,6 +1,13 @@
 import * as api from '../api';
 import * as types from './mutation-types';
 
+/***************
+ * Loads data from the API
+ * 
+ * data:  the data to load
+ * then:  the function to call after the data is successfully loaded
+ * catch: the function to call if there is an error when loading the data
+ */
 export const loadData = ({ commit }, payload) =>  {
     let _payload = payload;
 
@@ -21,6 +28,11 @@ export const loadData = ({ commit }, payload) =>  {
         });
 };
 
+/***************
+ * Adds or removes the item form the `selectedItems` array
+ * 
+ * itemId:  id of the item
+ */
 export const toggleSelectedItem = ({ commit, state }, payload) => {
     //See if id exists in `selectedItems`
     let i = state.selectedItems.indexOf(payload.itemId);
