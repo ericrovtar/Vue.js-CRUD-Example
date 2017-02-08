@@ -1,7 +1,7 @@
 /***************
  * Creates a table cell for each value in key in the item
  *
- * item:           the item to populate the table row with
+ * item: the item to populate the table row with
  **/
 <template>
     <tr :class="selected ? 'selected' : ''">

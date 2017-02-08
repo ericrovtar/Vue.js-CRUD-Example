@@ -1,8 +1,8 @@
 /***************
  * Displays a form to adding a data entry or editing an existing entry.
  *
- * item:           the item that will be edited; when adding a new item
- *                 pass in an empty item
+ * item: the item that will be edited; when adding a new item pass in
+ *       an empty item
  *
  * $emits: confirmation
  **/

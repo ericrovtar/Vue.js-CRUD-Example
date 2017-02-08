@@ -1,7 +1,7 @@
 /***************
  * Displays a the data from an item.
  *
- * item:           the item that will be displayed;
+ * item: the item that will be displayed;
  **/
  <template>
     <div>
