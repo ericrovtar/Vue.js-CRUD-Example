@@ -114,8 +114,6 @@
             </transition>
         </div>
 
-        {{ this.selectedItems }}
-
         <div class="overflow-x--scroll add-bottom-margin">
             <table>
                 <thead>
@@ -185,17 +183,17 @@ export default {
             'selectedItem',
             'selectedItems',
             'data',
-            // 'dataProperties',
+            'dataProperties',
             'newItem',
         ]),
-        dataProperties: {
-            get () {
-                return this.$store.state.dataProperties
-            },
-            set (value) {
-                this.$store.commit('changeDataProperty', value)
-            }
-        },
+        // dataProperties: {
+        //     get () {
+        //         return this.$store.state.dataProperties
+        //     },
+        //     set (value) {
+        //         this.$store.commit('changeDataProperty', value)
+        //     }
+        // },
         filteredSortedData: function () {
             this.sortData({
                 data: this.data.data,

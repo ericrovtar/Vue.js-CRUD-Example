@@ -1,19 +1,21 @@
 import * as api from '../api';
 
 export const loadData = ({ commit }, payload) =>  {
+    let _payload = payload;
+
     api.loadData()
         .then(function (response) {
             commit('loadData', { data: response.data });
 
-            if (payload.hasOwnProperty('then')) {
-                payload.then(response);
+            if (_payload.hasOwnProperty('then')) {
+                _payload.then(response);
             }
         })
         .catch(function (error) {
             console.log('Request failed: ', error);
 
-            if (payload.hasOwnProperty('catch')) {
-                payload.catch(error);
+            if (_payload.hasOwnProperty('catch')) {
+                _payload.catch(error);
             }
         });
 };

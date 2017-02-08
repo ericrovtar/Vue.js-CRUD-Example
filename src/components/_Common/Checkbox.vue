@@ -19,6 +19,10 @@ export default {
         checked: {
             type: Boolean,
             default: false
+        },
+        value: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -27,7 +31,7 @@ export default {
     },
     computed: {
         classes: function () {
-            if (this.checked === true) {
+            if (this.checked === true || this.value === true) {
                 return "fa-check-square-o";
             }
             else {
