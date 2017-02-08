@@ -338,7 +338,7 @@ export default {
                     );
 
                     //Clear Selected Items
-                    this.clearSelectedItems();
+                    _this.clearSelectedItems();
 
                     //Trigger data reload
                     _this.loadData({
@@ -356,7 +356,7 @@ export default {
                     console.log('Request failed: ', error);
 
                     //Show error message
-                    _this.updateConfirmation(
+                    _this.updateParentConfirmation(
                         'error',
                         `Oops! Something didn't go as expected. Please try again.`
                     );
