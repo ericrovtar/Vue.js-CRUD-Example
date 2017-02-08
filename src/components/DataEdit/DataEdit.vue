@@ -25,7 +25,8 @@
                             v-model="updatedItem[key]"
                             :disabled="!dataProperties[key].editable"
                             :required="dataProperties[key].required"
-                            :pattern="dataProperties[key].pattern === '' ? '.*' : dataProperties[key].pattern" />
+                            :pattern="dataProperties[key].pattern === '' ? '.*' : dataProperties[key].pattern"
+                            @change="calculateSaveState" />
                     </div>
                 </div>
             </div>
@@ -41,6 +42,7 @@
             </div>
 
             <CTA
+                :state="saveState"
                 :class="'add-right-margin'"
                 @click="save">
                 Save
@@ -75,6 +77,7 @@ export default {
             updatedItem: JSON.parse(JSON.stringify(this.item)),
             updateForm: 'updateForm',
             updateFormClass: '',
+            saveState: this.calculateSaveState(),
             confirmation: {
                 status: '',
                 message: ''
@@ -85,6 +88,9 @@ export default {
         ...mapGetters([
             'dataProperties'
         ]),
+        // saveState: function () {
+        //     return this.calculateSaveState();
+        // },
         filteredSortedData: function () {
             return this.sort(this.filter(this.data.data));
         }
@@ -100,10 +106,27 @@ export default {
         ...mapActions([
             'loadData'
         ]),
+        calculateSaveState: function () {
+            console.log(this.checkFormValidity());
+            //Check that the form is valid and isn't submitting
+            if ((this.checkFormValidity() === true)) {
+                console.log("enabled");
+                this.saveState = 'enabled';
+            }
+            else {
+                console.log("disabled");
+                this.saveState = 'disabled';
+            }
+        },
         checkFormValidity: function() {
-            var form = document.getElementById(this.updateForm);
+            try {
+                var form = document.getElementById(this.updateForm);
 
-            return form.checkValidity();
+                return form.checkValidity();
+            }
+            catch (err) {
+                return false;
+            }
         },
         updateParentConfirmation: function(status, message) {
             this.$emit('confirmation', {
@@ -123,6 +146,9 @@ export default {
 
             //Check form validity
             if (this.checkFormValidity() === true) {
+                //Set the form is submitting
+                this.saveState = 'disabled';
+
                 //Create item with properties needed for post/put
                 let postItem = this.createPostItem(this.updatedItem);
 
@@ -150,6 +176,10 @@ export default {
                 
                 //Handle promise
                 promise.then(function (response) {
+                    //Calculate Save Button State
+                    _this.calculateSaveState();
+
+                    //Show Confirmation
                     _this.updateParentConfirmation(
                         'success',
                         `Success! ${postItem.first_name} ${postItem.last_name} was ${method}.`
@@ -164,12 +194,14 @@ export default {
                             );
                         }
                     });
-                    // _this.$emit('save');
-                    
+
                     //Change view back to table
                     _this.changeView({ view: 'table' });
                 })
                 .catch(function (error) {
+                    //Calculate Save Button State
+                    _this.calculateSaveState();
+                    
                     console.log('Request failed: ', error);
 
                     //Show error message
