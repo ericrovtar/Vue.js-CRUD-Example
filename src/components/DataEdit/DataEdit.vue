@@ -194,6 +194,8 @@ export default {
 
                     //Change view back to table
                     _this.changeView({ view: 'table' });
+
+                    _this.$ScrollToTop;
                 })
                 .catch(function (error) {
                     //Calculate Save Button State
