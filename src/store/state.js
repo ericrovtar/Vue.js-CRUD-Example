@@ -95,7 +95,7 @@ export const state = {
         url: {
             value: 'URL',
             required: false,
-            pattern: '(http(s)?://)?([\w-]+\.)+[\w-]+[.com]+(/[/?%&=]*)?',
+            pattern: '',
             postBack: true,
             editable: true,
             showDefault: false

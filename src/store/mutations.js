@@ -1,3 +1,4 @@
+import * as types from './mutation-types';
 import { compareObjects } from '../includes/utilities';
 
 export const mutations = {
@@ -21,7 +22,7 @@ export const mutations = {
     changeDataProperty(state, payload) {
         state.dataProperties[payload.key].showDefault = payload.value;
     },
-    loadData(state, payload) {
+    [types.LOAD_DATA] (state, payload) {
         state.data = payload.data;
     },
     sortData(state, payload) {
@@ -37,10 +38,10 @@ export const mutations = {
             });
         }
     },
-    addSelectedItem(state, payload) {
+    [types.ADD_SELECTED_ITEM] (state, payload) {
         state.selectedItems.push(payload.itemId)
     },
-    removeSelectedItem(state, payload) {
+    [types.REMOVE_SELECTED_ITEM] (state, payload) {
         let i = state.selectedItems.indexOf(payload.itemId);
         state.selectedItems.splice(i, 1);
     },

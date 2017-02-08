@@ -1,11 +1,12 @@
 import * as api from '../api';
+import * as types from './mutation-types';
 
 export const loadData = ({ commit }, payload) =>  {
     let _payload = payload;
 
     api.loadData()
         .then(function (response) {
-            commit('loadData', { data: response.data });
+            commit(types.LOAD_DATA, { data: response.data });
 
             if (_payload.hasOwnProperty('then')) {
                 _payload.then(response);
@@ -26,10 +27,10 @@ export const toggleSelectedItem = ({ commit, state }, payload) => {
     
     if (i >= 0) {
         //Remove it
-        commit('removeSelectedItem', { itemId: payload.itemId });
+        commit(types.REMOVE_SELECTED_ITEM, { itemId: payload.itemId });
     }
     else {
         //Add it
-        commit('addSelectedItem', { itemId: payload.itemId });
+        commit(types.ADD_SELECTED_ITEM, { itemId: payload.itemId });
     }
 }
