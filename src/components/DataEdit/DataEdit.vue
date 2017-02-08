@@ -107,14 +107,11 @@ export default {
             'loadData'
         ]),
         calculateSaveState: function () {
-            console.log(this.checkFormValidity());
             //Check that the form is valid and isn't submitting
             if ((this.checkFormValidity() === true)) {
-                console.log("enabled");
                 this.saveState = 'enabled';
             }
             else {
-                console.log("disabled");
                 this.saveState = 'disabled';
             }
         },
