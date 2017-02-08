@@ -115,7 +115,7 @@
         </div>
 
         <div class="overflow-x--scroll add-bottom-margin">
-            <table>
+            <table v-if="filteredSortedData.length > 0">
                 <thead>
                     <tr>
                         <th id="row-select"></th>
@@ -140,6 +140,14 @@
                         :item="item" />
                 </tbody>
             </table>
+            <div v-else-if="!String.isNullOrWhitespace(filterText)" class="italic center">
+                Sorry, but no data was found with 
+                &ldquo;{{ dataProperties[filterProperty].value }}&rdquo; containing 
+                &ldquo;{{ filterText }}.&rdquo;
+            </div>
+            <div v-else class="italic center">
+                Sorry, but no data was found.
+            </div>
         </div>
     </div>
 </template>
