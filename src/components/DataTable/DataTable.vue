@@ -1,12 +1,7 @@
 /***************
  * Displays a table of data with editing and view options
  *
- * data:           the data to populate the table with
- *
- * dataProperties: an array of properties related to each database entry,
- *                 including required fields and required patterns
- *
- * $emits: confirmation, save, changeView
+ * $emits: confirmation
  **/
 <template>
     <div>
@@ -22,7 +17,7 @@
         <div class="[ flex justify-content--flex-start ] add-bottom-margin">
             <div>
                 <CTA :state="selectedItems.length > 0 ? 'disabled' : ''" 
-                     @click="changeView('add')">
+                     @click="addRow()">
                     <i class="fa fa-plus"></i> <span class="portable--hide">Add&hellip;</span>
                 </CTA>
             </div>
@@ -107,7 +102,9 @@
                         </div>
                         <div class="columns--3">
                             <div v-for="(value, key, index) in dataProperties">
-                                <Checkbox v-model="value.showDefault">
+                                <Checkbox 
+                                    :checked="value.showDefault"
+                                    @change="toggleColumn(key)">
                                     {{ value.value }}
                                 </Checkbox>
                             </div>
@@ -116,6 +113,8 @@
                 </div>
             </transition>
         </div>
+
+        {{ this.selectedItems }}
 
         <div class="overflow-x--scroll add-bottom-margin">
             <table>
@@ -140,9 +139,7 @@
                 <tbody>
                     <dataTableRow v-for="item in filteredSortedData" 
                         :key="item.id" 
-                        :item="item"
-                        :dataProperties="dataProperties"
-                        @toggleSelect="itemSelectToggle(item.id)" />
+                        :item="item" />
                 </tbody>
             </table>
         </div>
@@ -150,15 +147,19 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+
+import * as api from '../../api';
+
 import ModalDialog from '../_Common/ModalDialog';
 import CTA from '../_Common/CTA';
 import Checkbox from '../_Common/Checkbox';
+
 import DataTableRow from './DataTableRow';
 
 export default {
     name: 'dataTable',
-    props: [ 'data', 'dataProperties' ],
+    props: [ ],
     components: {
         DataTableRow,
         ModalDialog,
@@ -173,18 +174,53 @@ export default {
             showColumnSelect: false,
             sortProperty: 'last_name',
             sortOrder: 'asc',
-            selectedItems: [],
             dialogStatus: false,
             dialogOptions: [],
             dialogText: null
         }
     },
     computed: {
+        ...mapGetters([
+            'view',
+            'selectedItem',
+            'selectedItems',
+            'data',
+            // 'dataProperties',
+            'newItem',
+        ]),
+        dataProperties: {
+            get () {
+                return this.$store.state.dataProperties
+            },
+            set (value) {
+                this.$store.commit('changeDataProperty', value)
+            }
+        },
         filteredSortedData: function () {
-            return this.sort(this.filter(this.data.data));
+            this.sortData({
+                data: this.data.data,
+                sortOrder: this.sortOrder,
+                sortProperty: this.sortProperty 
+            });
+
+            return this.filter(this.data.data);
         }
     },
+    mounted() {
+        this.clearSelectedItems();
+    },
     methods: {
+        ...mapMutations([
+            'changeView',
+            'changeSelectedItem',
+            'sortData',
+            'changeDataProperty',
+            'clearSelectedItems'
+        ]),
+        ...mapActions([
+            'toggleSelectedItem',
+            'loadData'
+        ]),
         updateParentConfirmation: function(status, message) {
             this.$emit('confirmation', {
                 status: status,
@@ -201,23 +237,16 @@ export default {
             this.dialogOptions = [];
             this.dialogText = null;
         },
-        itemSelectToggle: function(id) {
-            //See if id exists in `selectedItems`
-            let i = this.selectedItems.indexOf(id);
-            if (i >= 0) {
-                //Remove it
-                this.selectedItems.splice(i, 1);
-            }
-            else {
-                //Add it
-                this.selectedItems.push(id);
-            }
-        },
         toggleFilter: function() {
             this.showFilter = !this.showFilter;
         },
         toggleColumnSelect: function() {
             this.showColumnSelect = !this.showColumnSelect;
+        },
+        toggleColumn: function(key) {
+            let value = !this.dataProperties[key].showDefault;
+
+            this.changeDataProperty({ key: key, value: value });
         },
         filter: function(data) {
             //Make sure data has loaded to table
@@ -244,42 +273,6 @@ export default {
             this.filterProperty = '';
             this.filterText = '';
         },
-        compareObjects: function(obj1, obj2) {
-            if (obj1[this.sortProperty] === null || obj1[this.sortProperty] === undefined) {
-                return -1;
-            }
-            else if (obj2[this.sortProperty] === null || obj2[this.sortProperty] === undefined){
-                return 1;
-            }
-            else {
-                //Compare based on type
-                if (typeof obj1[this.sortProperty] === "string") {
-                    return obj1[this.sortProperty].localeCompare(obj2[this.sortProperty]);
-                }
-                else if (typeof obj1[this.sortProperty] === "number") {
-                    return obj1[this.sortProperty] > obj2[this.sortProperty];
-                }
-                else {
-                    //Try turning the item into a string
-                    return obj1[this.sortProperty].toString().localeCompare(obj2[this.sortProperty].toString());
-                }
-            }
-        },
-        sort: function(data) {
-            if (data !== undefined) {
-                let _this = this;
-                
-                return data.sort(function(obj1, obj2) {
-                    //Check for sort order
-                    if (_this.sortOrder === 'asc') {
-                        return _this.compareObjects(obj1, obj2);
-                    }
-                    else {
-                        return _this.compareObjects(obj2, obj1);
-                    }
-                });
-            }
-        },
         changeSortProperty: function(property) {
             //Check if property has really changed
             if (property === this.sortProperty) {
@@ -305,28 +298,19 @@ export default {
                 this.setSortOrder('asc');
             }
         },
-        changeView: function(view) {
-            this.$emit('changeView', { view: view });
-        },
-        findItem: function(itemId) {
-            //Make `itemId` available in `find`
-            let _itemId = itemId;
-            
-            return this.data.data.find(function (item) {
-                return item.id === _itemId;
-            });
+        addRow: function() {
+            this.changeSelectedItem({ item: this.newItem });
+            this.changeView({ view: 'add' });
         },
         viewRow: function(itemId) {
-            let item = this.findItem(itemId);
-
             //Change view to view item
-            this.$emit('changeView', { view: 'view', item: item });
+            this.changeSelectedItem({ itemId: itemId });
+            this.changeView({ view: 'view' });
         },
         editRow: function(itemId) {
-            let item = this.findItem(itemId);
-
             //Change view to edit item
-            this.$emit('changeView', { view: 'edit', item: item });
+            this.changeSelectedItem({ itemId: itemId });
+            this.changeView({ view: 'edit' });
         },
         confirmDelete: function() {
             //Setup dialog options
@@ -344,31 +328,26 @@ export default {
             //Hide dialog
             this.hideDialog();
 
-            //Make `this` available inside forEach
+            //Make `this` available inside then
             let _this = this;
-            let requests = [];
 
-            //Iterated through each selected item
-            while (this.selectedItems.length > 0) {
-                let itemId = this.selectedItems.shift();
-                requests.push(_this.deleteRowRequest(itemId));
-            }
+            api.deleteItems(
+                this.selectedItems,
+                function() {
+                    _this.updateParentConfirmation(
+                        'success',
+                        `Success! The selected items were deleted.`
+                    );
 
-            axios.all(requests)
-                .then(axios.spread(
-                    function() {
-                        _this.updateParentConfirmation(
-                            'success',
-                            `Success! The selected items were deleted.`
-                        );
+                    //Clear Selected Items
+                    this.clearSelectedItems();
 
-                        //Trigger data reload
-                        _this.$emit('save');
-                        
-                        _this.$ScrollToTop;
-                    })
-                )
-                .catch(function (error) {
+                    //Trigger data reload
+                    _this.loadData();
+                    
+                    _this.$ScrollToTop;
+                },
+                function (error) {
                     console.log('Request failed: ', error);
 
                     //Show error message
@@ -378,19 +357,11 @@ export default {
                     );
 
                     _this.$ScrollToTop;
-                });  
-        },
-        deleteRowRequest: function(itemId) {
-            let url = `https://challenge.acstechnologies.com/api/contact/${itemId}`;
-            let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
-
-            return axios.delete(url, {
-                headers: headers
-            });
+                }
+            );  
         },
     }
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
