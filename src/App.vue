@@ -68,8 +68,14 @@ export default {
     },
     beforeMount () {
         //Get Table Data
-        this.loadData();
-        console.log(this.data);
+        this.loadData({
+            catch: function(error) {
+                this.updateConfirmation(
+                    'error',
+                    `Oops! Something didn't go as expected. Please try again.`
+                );
+            }
+        });
     },
     computed: {
         ...mapGetters([

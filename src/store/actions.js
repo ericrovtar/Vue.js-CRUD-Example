@@ -1,17 +1,20 @@
 import * as api from '../api';
 
-export const loadData = ({ commit }) =>  {
+export const loadData = ({ commit }, payload) =>  {
     api.loadData()
         .then(function (response) {
             commit('loadData', { data: response.data });
-            //_this.data = response.data;
+
+            if (payload.hasOwnProperty('then')) {
+                payload.then(response);
+            }
         })
         .catch(function (error) {
             console.log('Request failed: ', error);
-            // this.updateConfirmation(
-            //     'error',
-            //     `Oops! Something didn't go as expected. Please try again.`
-            // );
+
+            if (payload.hasOwnProperty('catch')) {
+                payload.catch(error);
+            }
         });
 };
 

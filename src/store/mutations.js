@@ -2,18 +2,11 @@ import { compareObjects } from '../includes/utilities';
 
 export const mutations = {
     changeView(state, payload) {
-        console.log("Mutation: changeView called");
-        console.log(payload.view);
-
         state.view = payload.view;
     },
     changeSelectedItem(state, payload) {
-        console.log("Mutation: changeSelectedItem called");
-
         //Check if we have an `item` or `itemId`
         if (payload.hasOwnProperty('item')) {
-            console.log(payload.item);
-
             state.selectedItem = payload.item;
         }
         else if (payload.hasOwnProperty('itemId')) {
@@ -26,16 +19,9 @@ export const mutations = {
         }
     },
     changeDataProperty(state, payload) {
-        console.log("Mutation: changeDataProperty called");
-        console.log(payload.key);
-        console.log(payload.value);      
-
         state.dataProperties[payload.key].showDefault = payload.value;
     },
     loadData(state, payload) {
-        console.log("Mutation: loadData called");
-        console.log(payload);
-
         state.data = payload.data;
     },
     sortData(state, payload) {

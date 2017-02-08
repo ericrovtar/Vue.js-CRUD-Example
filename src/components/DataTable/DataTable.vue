@@ -343,7 +343,14 @@ export default {
                     this.clearSelectedItems();
 
                     //Trigger data reload
-                    _this.loadData();
+                    _this.loadData({
+                        catch: function(error) {
+                            _this.updateParentConfirmation(
+                                'error',
+                                `Oops! Something didn't go as expected. Please try again.`
+                            );
+                        }
+                    });
                     
                     _this.$ScrollToTop;
                 },
