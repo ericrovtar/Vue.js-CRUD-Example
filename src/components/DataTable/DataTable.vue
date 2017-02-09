@@ -255,7 +255,7 @@ export default {
                         let _this = this;
 
                         return data.filter(function (data) {
-                            return data[_this.filterProperty].toString().includes(_this.filterText);
+                            return data[_this.filterProperty].toString().toLowerCase().includes(_this.filterText.toLowerCase());
                         });
                     }
                 }
