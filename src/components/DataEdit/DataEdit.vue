@@ -114,13 +114,17 @@ export default {
             this.calculateSaveState();
         },
         calculateSaveState: function () {
-            //Check that the form is valid and isn't submitting
+            //Check that the form is valid
             if ((this.checkFormValidity() === true)) {
-                this.saveState = 'enabled';
+                //Check if anything has changed
+                if (JSON.stringify(this.updatedItem) !== JSON.stringify(this.item)) {
+                    this.saveState = 'enabled';
+                    
+                    return;
+                }
             }
-            else {
-                this.saveState = 'disabled';
-            }
+
+            this.saveState = 'disabled';
         },
         checkFormValidity: function() {
             try {
