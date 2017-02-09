@@ -495,7 +495,8 @@ input[type="email"], textarea, select {
 input[type="text"],
 input[type="email"] {
   height: 3rem; }
-  form.submitted input[type="text"]:not(:focus):invalid, form.submitted
+  form.editted input[type="text"]:not(:focus):invalid, form.submitted input[type="text"]:not(:focus):invalid, form.editted
+  input[type="email"]:not(:focus):invalid, form.submitted
   input[type="email"]:not(:focus):invalid {
     border-color: #cc0000; }
 

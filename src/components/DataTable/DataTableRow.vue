@@ -1,17 +1,14 @@
 /***************
  * Creates a table cell for each value in key in the item
  *
- * item:           the item to populate the table row with
- *
- * dataProperties: an array of properties related to each database entry,
- *                 including required fields and required patterns
- *
- * $emits: toggleSelect
+ * item: the item to populate the table row with
  **/
 <template>
     <tr :class="selected ? 'selected' : ''">
         <td headers="row-select" class="white-space--no-wrap">
-            <Checkbox v-model="selected" @click="toggleSelect" />
+            <Checkbox 
+                v-model="selected" 
+                @click="toggleSelectedItem({ itemId: item.id })" />
         </td>
         
         <td v-for="(value, key, index) in item" 
@@ -20,30 +17,17 @@
             :headers="key">
             {{value}}
         </td>
-
-        <div v-if="false">
-            <td headers="table-controls" class="white-space--nowrap">
-                <a title="Edit"
-                    @click="editRow"
-                    class="cursor--pointer text--medium-blue">
-                    <i class="fa fa-pencil"></i>
-                </a>
-                <a title="Delete"
-                    @click="deleteRow"
-                    class="cursor--pointer text--medium-blue">
-                    <i class="fa fa-remove"></i>
-                </a>
-            </td>
-        </div>
     </tr>
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+
 import Checkbox from '../_Common/Checkbox';
 
 export default {
     name: 'dataTableRow',
-    props: [ 'item', 'dataProperties' ],
+    props: [ 'item' ],
     components: {
         Checkbox
     },
@@ -52,13 +36,18 @@ export default {
             selected: false
         }
     },
+    computed: {
+        ...mapGetters([
+            'dataProperties',
+            'selectedItems',
+        ]),
+    },
     methods: {
-        toggleSelect: function() {
-            this.$emit('toggleSelect');
-        },
+        ...mapActions([
+            'toggleSelectedItem'
+        ]),
     },
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

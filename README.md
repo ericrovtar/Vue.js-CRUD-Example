@@ -1,4 +1,4 @@
-# acs-code-challenge
+# ACS Code Challenge - Eric Rovtar
 
 > A Vue.js project to complete the code challenge for ACS Technologies
 
@@ -42,21 +42,12 @@ created and applied as needed. This unbinds the CSS from the content, and - whil
 using more classes per element - you also end up with a better understanding of what is being applied
 to each element. Vue's method of handling CSS is stronly tied to each component.
 
-## Not Using State Management
-Like React and other similar frameworks, Vue has a state management extension, Vuex. While I am passing
-a fair bit of data between components, one might argue that using Vuex is appropriate in this scenario;
-however, because I wanted to keep this as simple as possible and since it is a single page application,
-I couldn't justify the need for true state management. 
-
-Would I expand on this application and reach scenarios where I have components interacting across other
-components (ex: ModalDialog & Confirmation).
-
 ## Why Does `dataProperties` Exist?
 Whenever working with any kind of database, you're going to have to have some sort of schema stored 
 somewhere. In C#, this usually is just a class structure; the properties representing a column and, 
 their respective types, restrictions on the value. 
 
-At first, my idea was to lead the schema directly from the first object returned when the table was 
+At first, my idea was to load the schema directly from the first object returned when the table was 
 loaded, but I realized there were a few short comings to this. First, I couldn't properly format the 
 field titles (ex: `id` became "Id," which sets off my OCD). Second, there wasn't a good way to 
 determine required values. Third, I had no way of validating a value type. Finally, there were going 

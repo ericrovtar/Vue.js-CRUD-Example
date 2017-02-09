@@ -1,13 +1,10 @@
 /***************
  * Displays a form to adding a data entry or editing an existing entry.
  *
- * item:           the item that will be edited; when adding a new item
- *                 pass in an empty item
+ * item: the item that will be edited; when adding a new item pass in
+ *       an empty item
  *
- * dataProperties: an array of properties related to each database entry,
- *                 including required fields and required patterns
- *
- * $emits: confirmation, save, changeView
+ * $emits: confirmation
  **/
 <template>
     <div class="lock-width center-by-margin">
@@ -21,14 +18,18 @@
               :class="updateFormClass">
             <div v-for="(value, key, index) in item">
                 <div v-if="dataProperties[key].editable" class="add-bottom-margin">
-                    <div class="bold">{{ dataProperties[key].value }}</div>
+                    <div class="bold">
+                        {{ dataProperties[key].value }}
+                        <span v-if="dataProperties[key].required">*</span>
+                    </div>
 
                     <div>
                         <input type="text"
                             v-model="updatedItem[key]"
                             :disabled="!dataProperties[key].editable"
                             :required="dataProperties[key].required"
-                            :pattern="dataProperties[key].pattern === '' ? '.*' : dataProperties[key].pattern" />
+                            :pattern="dataProperties[key].pattern === '' ? '.*' : dataProperties[key].pattern"
+                            @change="fieldChange" />
                     </div>
                 </div>
             </div>
@@ -44,6 +45,7 @@
             </div>
 
             <CTA
+                :state="saveState"
                 :class="'add-right-margin'"
                 @click="save">
                 Save
@@ -57,13 +59,18 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+
+import * as api from '../../api';
+
 import CTA from '../_Common/CTA';
 import Confirmation from '../_Common/Confirmation';
 
 export default {
     name: 'dataEdit',
-    props: [ 'item', 'dataProperties' ],
+    props: [ 
+        'item', 
+    ],
     components: {
         Confirmation,
         CTA
@@ -73,21 +80,61 @@ export default {
             updatedItem: JSON.parse(JSON.stringify(this.item)),
             updateForm: 'updateForm',
             updateFormClass: '',
+            saveState: '',
             confirmation: {
                 status: '',
                 message: ''
             }
         }
     },
+    computed: {
+        ...mapGetters([
+            'dataProperties'
+        ]),
+    },
     mounted () {
         //Clear parent confirmation message
         this.updateParentConfirmation(null, null);
+
+        //Check if Save should be enabled initially
+        this.calculateSaveState();
     },
     methods: {
-        checkFormValidity: function() {
-            var form = document.getElementById(this.updateForm);
+        ...mapMutations([
+            'changeView',
+        ]),
+        ...mapActions([
+            'loadData'
+        ]),
+        fieldChange: function () {
+            //Change form class for styling
+            this.updateFormClass = 'editted';
 
-            return form.checkValidity();
+            //Check if Save should be enabled
+            this.calculateSaveState();
+        },
+        calculateSaveState: function () {
+            //Check that the form is valid
+            if ((this.checkFormValidity() === true)) {
+                //Check if anything has changed
+                if (JSON.stringify(this.updatedItem) !== JSON.stringify(this.item)) {
+                    this.saveState = 'enabled';
+                    
+                    return;
+                }
+            }
+
+            this.saveState = 'disabled';
+        },
+        checkFormValidity: function() {
+            try {
+                var form = document.getElementById(this.updateForm);
+
+                return form.checkValidity();
+            }
+            catch (err) {
+                return false;
+            }
         },
         updateParentConfirmation: function(status, message) {
             this.$emit('confirmation', {
@@ -103,10 +150,13 @@ export default {
         },
         save: function() {
             //Add `submitted` class to the form
-            this.updateFormClass = "submitted";
+            this.updateFormClass = 'submitted';
 
             //Check form validity
             if (this.checkFormValidity() === true) {
+                //Set the form is submitting
+                this.saveState = 'disabled';
+
                 //Create item with properties needed for post/put
                 let postItem = this.createPostItem(this.updatedItem);
 
@@ -118,13 +168,13 @@ export default {
                 //Check for new item
                 if (String.isNullOrWhitespace(this.item.id)) {
                     //Add the item to the database
-                    promise = this.addToDatabase(postItem);
+                    promise = api.addItem(postItem);
 
                     method = 'added';
                 }
                 else {
                     //Update existing item
-                    promise = this.updateInDatabase(this.item.id, postItem);
+                    promise = api.updateItem(this.item.id, postItem);
 
                     method = 'updated';
                 }
@@ -134,18 +184,34 @@ export default {
                 
                 //Handle promise
                 promise.then(function (response) {
+                    //Calculate Save Button State
+                    _this.calculateSaveState();
+
+                    //Show Confirmation
                     _this.updateParentConfirmation(
                         'success',
                         `Success! ${postItem.first_name} ${postItem.last_name} was ${method}.`
                     );
 
                     //Trigger data reload
-                    _this.$emit('save');
-                    
+                    _this.loadData({
+                        catch: function(error) {
+                            _this.updateParentConfirmation(
+                                'error',
+                                `Oops! Something didn't go as expected. Please try again.`
+                            );
+                        }
+                    });
+
                     //Change view back to table
-                    _this.$emit('changeView', { view: 'table' });
+                    _this.changeView({ view: 'table' });
+
+                    _this.$ScrollToTop;
                 })
                 .catch(function (error) {
+                    //Calculate Save Button State
+                    _this.calculateSaveState();
+                    
                     console.log('Request failed: ', error);
 
                     //Show error message
@@ -170,7 +236,7 @@ export default {
         },
         cancel: function() {
             //Let parent know we're done
-            this.$emit('changeView', { view: 'table' });
+            this.changeView({ view: 'table' });
         },
         createPostItem: function(item) {
             let postItem = {};
@@ -184,34 +250,6 @@ export default {
 
             return postItem;
         },
-        addToDatabase: function(item) {
-            //Post New Data
-            let url = 'https://challenge.acstechnologies.com/api/contact/';
-            let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
-
-            let promise = axios.post(url, item, {
-                headers: headers
-            });
-
-            return promise;
-        },
-        updateInDatabase(id, item) {
-            //Update database data
-            let url = `https://challenge.acstechnologies.com/api/contact/${id}`;
-            let headers = { 'X-Auth-Token': 'Yrbyr1QQy1iyitdRjNcf2SQSsGQYrcWlxnKMsfOg' };
-
-            let promise = axios.put(url, item, {
-                headers: headers
-            });
-
-            return promise;
-        },
-        // createConfirmation(status, message) {
-        //     return {
-        //         status: status,
-        //         message: message
-        //     }
-        // }
     }
 }
 </script>

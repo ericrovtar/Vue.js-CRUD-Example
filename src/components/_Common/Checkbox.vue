@@ -1,9 +1,9 @@
 /***************
  * Displays a custom checkbox using FontAwesome
  *
- * value: a truthy value representing if the box is checked or not
+ * checked: a truthy value representing if the box is checked or not
  *
- * emits: input, click
+ * emits: input, click, change
  **/
  <template>
     <span class="cursor--pointer" @click="toggleCheck">
@@ -16,6 +16,10 @@
 export default {
     name: 'checkbox',
     props:  {
+        checked: {
+            type: Boolean,
+            default: false
+        },
         value: {
             type: Boolean,
             default: false
@@ -27,7 +31,7 @@ export default {
     },
     computed: {
         classes: function () {
-            if (this.value === true) {
+            if (this.checked === true || this.value === true) {
                 return "fa-check-square-o";
             }
             else {
@@ -39,6 +43,7 @@ export default {
         toggleCheck() {
             this.$emit('input', !this.value);
             this.$emit('click');
+            this.$emit('change');
         }
     }
 
