@@ -115,7 +115,7 @@
         </div>
 
         <div class="overflow-x--scroll add-bottom-margin">
-            <table v-if="filteredSortedData.length > 0">
+            <table v-if="filteredSortedData !== undefined && filteredSortedData.length > 0">
                 <thead>
                     <tr>
                         <th id="row-select"></th>
@@ -194,14 +194,6 @@ export default {
             'dataProperties',
             'newItem',
         ]),
-        // dataProperties: {
-        //     get () {
-        //         return this.$store.state.dataProperties
-        //     },
-        //     set (value) {
-        //         this.$store.commit('changeDataProperty', value)
-        //     }
-        // },
         filteredSortedData: function () {
             this.sortData({
                 data: this.data.data,

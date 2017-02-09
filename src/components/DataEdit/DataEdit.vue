@@ -18,7 +18,10 @@
               :class="updateFormClass">
             <div v-for="(value, key, index) in item">
                 <div v-if="dataProperties[key].editable" class="add-bottom-margin">
-                    <div class="bold">{{ dataProperties[key].value }}</div>
+                    <div class="bold">
+                        {{ dataProperties[key].value }}
+                        <span v-if="dataProperties[key].required">*</span>
+                    </div>
 
                     <div>
                         <input type="text"
@@ -77,7 +80,7 @@ export default {
             updatedItem: JSON.parse(JSON.stringify(this.item)),
             updateForm: 'updateForm',
             updateFormClass: '',
-            saveState: this.calculateSaveState(),
+            saveState: '',
             confirmation: {
                 status: '',
                 message: ''
@@ -88,16 +91,13 @@ export default {
         ...mapGetters([
             'dataProperties'
         ]),
-        // saveState: function () {
-        //     return this.calculateSaveState();
-        // },
-        filteredSortedData: function () {
-            return this.sort(this.filter(this.data.data));
-        }
     },
     mounted () {
         //Clear parent confirmation message
         this.updateParentConfirmation(null, null);
+
+        //Check if Save should be enabled initially
+        this.calculateSaveState();
     },
     methods: {
         ...mapMutations([
