@@ -4,6 +4,7 @@ input[type="email"] {
 
     height: 3rem;
 
+    form.editted &:not(:focus):invalid,
     form.submitted &:not(:focus):invalid {
         border-color: $red;
     }

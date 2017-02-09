@@ -29,7 +29,7 @@
                             :disabled="!dataProperties[key].editable"
                             :required="dataProperties[key].required"
                             :pattern="dataProperties[key].pattern === '' ? '.*' : dataProperties[key].pattern"
-                            @change="calculateSaveState" />
+                            @change="fieldChange" />
                     </div>
                 </div>
             </div>
@@ -106,6 +106,13 @@ export default {
         ...mapActions([
             'loadData'
         ]),
+        fieldChange: function () {
+            //Change form class for styling
+            this.updateFormClass = 'editted';
+
+            //Check if Save should be enabled
+            this.calculateSaveState();
+        },
         calculateSaveState: function () {
             //Check that the form is valid and isn't submitting
             if ((this.checkFormValidity() === true)) {
@@ -139,7 +146,7 @@ export default {
         },
         save: function() {
             //Add `submitted` class to the form
-            this.updateFormClass = "submitted";
+            this.updateFormClass = 'submitted';
 
             //Check form validity
             if (this.checkFormValidity() === true) {
