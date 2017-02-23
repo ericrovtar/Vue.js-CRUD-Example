@@ -1,6 +1,6 @@
-# ACS Code Challenge - Eric Rovtar
+# Vue.js CRUD Example
 
-> A Vue.js project to complete the code challenge for ACS Technologies
+> Use Vue.js to create a single page application with CRUD functionality on API calls
 
 ## Build Setup
 
