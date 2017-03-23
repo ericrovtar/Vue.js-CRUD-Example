@@ -1,6 +1,7 @@
 # Vue.js CRUD Example
 
-> Use Vue.js to create a single page application with CRUD functionality on API calls
+> Use Vue.js to create a single page application with CRUD functionality on API calls.
+> This was my first Vue.js project.
 
 ## Build Setup
 
